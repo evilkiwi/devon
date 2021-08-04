@@ -42,15 +42,14 @@ export const initCommand: CommandHandler = ({ config, program }) => {
 
             // Otherwise, we can start to bootstrap.
             // First find all folders in cwd that _might_ be microservices.
-            const services: Service[] = (await glob(join(path, '*', `+(${recognizedFiles.join('|')})`), {
+            let services: string[] = (await glob(join(path, '*', `+(${recognizedFiles.join('|')})`), {
                 dot: true,
             })).map(servicePath => {
-                const name = servicePath.replace(`${path}${sep}`, '').split(sep)[0];
-
-                return {
-                    name,
-                };
+                return servicePath.replace(`${path}${sep}`, '').split(sep)[0];
             });
+
+            // Convert to a Set and back to easily remove duplicates.
+            services = [...new Set(services)];
 
             // Then ask which, if any, should be bootstrapped, along with setting up some standard stuff.
             const answers = await inquirer.prompt<{
@@ -76,8 +75,8 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 name: 'bootstrap',
                 message: 'Bootstrap existing Services?',
                 choices: services.map(service => ({
-                    name: service.name,
-                    value: service.name,
+                    name: service,
+                    value: service,
                 })),
             }, {
                 type: 'list',
@@ -151,10 +150,10 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 await answers.bootstrap.reduce(async (promise, service) => {
                     await promise;
 
-                    const conf = services.find(item => item.name === service);
+                    const conf = services.find(item => item === service);
 
                     if (conf) {
-                        await outputFile(join(path, conf.name, serviceFilename), serviceConfig(input));
+                        await outputFile(join(path, conf, serviceFilename), serviceConfig(input));
                     }
                 }, Promise.resolve());
 
