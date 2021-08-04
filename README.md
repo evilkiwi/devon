@@ -41,6 +41,7 @@ If you want `devon` to automate generating and installing local SSL Certificates
 `devon help` lists all available commands and usage. Some useful commands to get you started are:
 
 - `devon init` - Initialize `devon` in the current working directory. This should be the root of your monorepo.
+- `devon install` - Should be ran every time a new device clones the repo. Does things like install the certificate CA, etc.
 - `devon switch` - Switch which services/apps you are currently working on.
 - `devon run <name...>` - Run the given Script(s).
 - `devon exec <name> <command...>` - Run a command inside the container for a service.
