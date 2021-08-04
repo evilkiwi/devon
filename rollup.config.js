@@ -21,7 +21,7 @@ export default {
         file: pkg.main,
         format: 'cjs',
         sourcemap: !isProduction,
-        banner: '#! /usr/bin/env node\n',
+        banner: '#!/usr/bin/env node\n',
     }],
     plugins: [
         typescript({
