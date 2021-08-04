@@ -74,9 +74,9 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 type: 'checkbox',
                 name: 'bootstrap',
                 message: 'Bootstrap existing Services?',
-                choices: services.map(service => ({
-                    name: service,
-                    value: service,
+                choices: services.map(name => ({
+                    name,
+                    value: name,
                 })),
             }, {
                 type: 'list',
@@ -162,7 +162,7 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 await outputFile(definitionPath, definition({
                     ...input,
                     services: [
-                        ...services.map(name => ({
+                        ...answers.bootstrap.map(name => ({
                             name,
                         })),
                         ...chosen.map(name => ({
