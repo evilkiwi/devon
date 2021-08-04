@@ -162,7 +162,9 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 await outputFile(definitionPath, definition({
                     ...input,
                     services: [
-                        ...services,
+                        ...services.map(name => ({
+                            name,
+                        })),
                         ...chosen.map(name => ({
                             name,
                             path: join(dir, name),

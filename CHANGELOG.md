@@ -1,3 +1,7 @@
+# 1.0.2 (2021-08-04)
+
+- Fix `.devon.ts` template not adding correct service name
+
 # 1.0.1 (2021-08-04)
 
 - Fix duplicate services in `devon init` if they match multiple criteria
