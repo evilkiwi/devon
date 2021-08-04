@@ -1,10 +1,12 @@
 import { emptyDir, pathExists, outputFile } from 'fs-extra';
+import { cwd as originalCWD, chdir } from 'process';
 import { green, red, yellow } from 'chalk';
 import { exec as e } from 'child_process';
 import handlebars from 'handlebars';
 import { join, sep } from 'path';
 import { promisify } from 'util';
 import inquirer from 'inquirer';
+import sudo from 'sudo-prompt';
 import ora from 'ora';
 import type { CommandHandler, Service } from '@/types';
 import * as templates from '@/templates';
@@ -59,10 +61,12 @@ export const initCommand: CommandHandler = ({ config, program }) => {
             const answers = await inquirer.prompt<{
                 project: string;
                 manager: 'yarn'|'npm'|null;
+                ssl: boolean;
                 bootstrap: string[];
                 db: 'mysql8'|'mysql5'|null;
                 redis: boolean;
-                proxy: boolean;
+                proxy?: boolean;
+                domains?: string;
             }>([{
                 type: 'input',
                 name: 'project',
@@ -119,6 +123,16 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 type: 'confirm',
                 name: 'proxy',
                 message: 'Add NGINX Reverse Proxy?',
+            }, {
+                type: 'confirm',
+                name: 'ssl',
+                message: 'Automate local SSL? (You must install mkcert, see README)',
+                when: ({ proxy }) => proxy,
+            }, {
+                type: 'input',
+                name: 'domains',
+                message: 'Domains for SSL Certificate (separate with space)',
+                when: ({ ssl }) => ssl,
             }]);
 
             console.log('');
@@ -148,7 +162,6 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                         });
                     }
                 } catch (e) {
-                    console.log('xxx', e);
                     // Ignore.
                 }
 
@@ -176,18 +189,6 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                     await outputFile(join(chosenPath, serviceFilename), cfg(input));
                 }, Promise.resolve());
 
-                // If they enabled the proxy, create the additional files for that.
-                if (answers.proxy) {
-                    const proxyPath = join(dataPath, 'proxy');
-
-                    await emptyDir(join(proxyPath, 'sites'));
-                    await emptyDir(join(proxyPath, 'certs'));
-
-                    await outputFile(join(proxyPath, 'sites', 'app.conf'), templates.proxyExample);
-
-                    // TODO: Initialize certs via mkcert
-                }
-
                 // Output config files to each service.
                 const serviceConfig = handlebars.compile(templates.serviceFile);
                 await answers.bootstrap.reduce(async (promise, service) => {
@@ -204,6 +205,64 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                         }
                     }
                 }, Promise.resolve());
+
+                // If they enabled the proxy, create the additional files for that.
+                if (answers.proxy) {
+                    const proxyPath = join(dataPath, 'proxy');
+
+                    init.text = 'Generating proxy certificates';
+
+                    await emptyDir(join(proxyPath, 'sites'));
+                    await emptyDir(join(proxyPath, 'certs'));
+
+                    await outputFile(join(proxyPath, 'sites', 'app.conf'), templates.proxyExample);
+
+                    if (answers.ssl) {
+                        // Install the new CA keys.
+                        await new Promise<void>((resolve, reject) => {
+                            sudo.exec('mkcert -install', {
+                                name: 'devon',
+                                env: {
+                                    CAROOT: join(proxyPath, 'certs'),
+                                },
+                            }, err => {
+                                if (err) {
+                                    reject(err);
+                                    return;
+                                }
+
+                                resolve();
+                            });
+                        });
+
+                        // Generate the usable SSLs.
+                        const domains = (answers.domains ?? '').split(' ');
+
+                        if (domains.length && domains[0].length) {
+                            const ogCWD = originalCWD();
+
+                            chdir(join(proxyPath, 'certs'));
+
+                            await new Promise<void>((resolve, reject) => {
+                                sudo.exec(`mkcert ${domains.join(' ')}`, {
+                                    name: 'devon',
+                                    env: {
+                                        CAROOT: join(proxyPath, 'certs'),
+                                    },
+                                }, err => {
+                                    if (err) {
+                                        reject(err);
+                                        return;
+                                    }
+
+                                    resolve();
+                                });
+                            });
+
+                            chdir(ogCWD);
+                        }
+                    }
+                }
 
                 // Save the definition file.
                 const definition = handlebars.compile(templates.definitionFile);

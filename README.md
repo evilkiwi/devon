@@ -14,6 +14,7 @@
 `@casthub/devon` is a node-based CLI tool aiming to bridge the gap between production and local development for monorepos.
 
 - Configure multi-command Scripts for common development workflows
+- Automate trusted local SSL certificates out-of-the-box
 - Generate `.env` files automatically based on the target environment
 - Run production-grade images locally without having to touch `docker` commands
 - Bootstrap existing Monorepos with intelligent initialization
@@ -32,6 +33,8 @@ npm install -g @casthub/devon
 ```
 
 **You also need to have Docker installed on your local machine.** It can be downloaded via [docker.com](https://www.docker.com/products/docker-desktop).
+
+If you want `devon` to automate generating and installing local SSL Certificates, you also must [install mkcert](https://github.com/FiloSottile/mkcert#installation).
 
 ## Usage
 

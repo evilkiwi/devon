@@ -1,3 +1,7 @@
+# 1.0.5 (2021-08-04)
+
+- Allow `mkcert` automation
+
 # 1.0.4 (2021-08-04)
 
 - Install `@casthub/devon` as a local dev dependency if supported (For type support)

@@ -9,7 +9,7 @@ export const config: DefinitionFile = {
     }{{/each}}],
     environments: [{
         name: 'local',
-        desc: 'Use your local machine for unchosen resources',
+        desc: 'Use your local machine',
     }],
 };
 `;
