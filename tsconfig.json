@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "./build/",
+        "module": "es2015",
+        "target": "es5",
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "disableSizeLimit": true,
+        "downlevelIteration": true,
+        "declaration": true,
+        "paths": {
+            "*": ["./src/types/*.d.ts"],
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

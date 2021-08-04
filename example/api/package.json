@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "name": "@example/api",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "echo \"TEST\""
+    }
+}
