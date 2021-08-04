@@ -3,5 +3,8 @@
     "workspaces": [
         "app",
         "api"
-    ]
+    ],
+    "devDependencies": {
+        "@casthub/devon": "^1.0.3"
+    }
 }

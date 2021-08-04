@@ -24,20 +24,16 @@ export const config: DefinitionFile = {
         desc: 'Use your local machine',
     }],
     scripts: {
-        frontend: {
-            desc: 'Run the dev build frontends',
-            commands: [{
-                name: 'app',
-                command: 'yarn',
-                args: ['workspace', '@example/app', 'dev'],
-            }],
-        },
-        backend: {
-            desc: 'Run the dev build for API backend',
+        frontends: {
+            desc: 'Run the frontend dev builds',
             commands: [{
                 name: 'api',
                 command: 'yarn',
                 args: ['workspace', '@example/api', 'dev'],
+            }, {
+                name: 'app',
+                command: 'yarn',
+                args: ['workspace', '@example/app', 'dev'],
             }],
         },
     },

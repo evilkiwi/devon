@@ -19,10 +19,13 @@ export const generateEnv = async (env: string) => {
 
         const serviceEnv = services[name].config.env ?? {};
         const path = services[name].definition.path ?? name;
-
-        await outputFile(join(dir, path, '.env'), objToEnv({
+        const compiledEnv = {
             ...(serviceEnv.default ?? {}),
             ...(serviceEnv[env] ?? {}),
-        }));
+        };
+
+        if (Object.keys(compiledEnv).length) {
+            await outputFile(join(dir, path, '.env'), objToEnv(compiledEnv));
+        }
     }, Promise.resolve());
 };

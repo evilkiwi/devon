@@ -1,12 +1,16 @@
 import { emptyDir, pathExists, outputFile } from 'fs-extra';
 import { green, red, yellow } from 'chalk';
+import { exec as e } from 'child_process';
 import handlebars from 'handlebars';
 import { join, sep } from 'path';
+import { promisify } from 'util';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import type { CommandHandler, Service } from '@/types';
 import * as templates from '@/templates';
 import { cwd, glob } from '@/helpers';
+
+const exec = promisify(e);
 
 // All files we recognize inside top-level folders as potentially microservice definitions.
 const recognizedFiles = [
@@ -54,6 +58,7 @@ export const initCommand: CommandHandler = ({ config, program }) => {
             // Then ask which, if any, should be bootstrapped, along with setting up some standard stuff.
             const answers = await inquirer.prompt<{
                 project: string;
+                manager: 'yarn'|'npm'|null;
                 bootstrap: string[];
                 db: 'mysql8'|'mysql5'|null;
                 redis: boolean;
@@ -70,6 +75,20 @@ export const initCommand: CommandHandler = ({ config, program }) => {
 
                     return true;
                 },
+            }, {
+                type: 'list',
+                name: 'manager',
+                message: 'Which Package Manager do you use?',
+                choices: [{
+                    name: 'Yarn',
+                    value: 'yarn',
+                }, {
+                    name: 'NPM',
+                    value: 'npm',
+                }, {
+                    name: 'None',
+                    value: null,
+                }],
             }, {
                 type: 'checkbox',
                 name: 'bootstrap',
@@ -113,6 +132,26 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                 // Create the gitignore for mounted filesystem data.
                 await outputFile(join(dataPath, '.gitignore'), dataFolder);
 
+                // Attempt to install as a global dev dependency.
+                try {
+                    let command = '';
+
+                    switch (answers.manager) {
+                        case 'yarn': command = 'yarn add @casthub/devon --dev -W'; break;
+                        case 'npm': command = 'npm install --dev @casthub/devon'; break;
+                    }
+
+                    if (command.length) {
+                        init.text = 'Installing global devdependency';
+                        await exec(command, {
+                            cwd: dir,
+                        });
+                    }
+                } catch (e) {
+                    console.log('xxx', e);
+                    // Ignore.
+                }
+
                 // Create a common handlebars input.
                 const input: any = {
                     dir,
@@ -126,6 +165,8 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                     ...(answers.proxy ? ['proxy'] : []),
                     ...(answers.db ? [answers.db] : []),
                 ];
+
+                init.text = 'Compiling service configs';
 
                 await chosen.reduce(async (promise, service) => {
                     const cfg = handlebars.compile((templates as any)[service]);
@@ -142,6 +183,8 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                     await emptyDir(join(proxyPath, 'sites'));
                     await emptyDir(join(proxyPath, 'certs'));
 
+                    await outputFile(join(proxyPath, 'sites', 'app.conf'), templates.proxyExample);
+
                     // TODO: Initialize certs via mkcert
                 }
 
@@ -153,7 +196,12 @@ export const initCommand: CommandHandler = ({ config, program }) => {
                     const conf = services.find(item => item === service);
 
                     if (conf) {
-                        await outputFile(join(path, conf, serviceFilename), serviceConfig(input));
+                        const servicePath = join(path, conf, serviceFilename);
+                        const exists = await pathExists(servicePath);
+
+                        if (!exists) {
+                            await outputFile(join(path, conf, serviceFilename), serviceConfig(input));
+                        }
                     }
                 }, Promise.resolve());
 
