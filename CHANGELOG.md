@@ -1,6 +1,11 @@
+# 1.0.8 (2021-08-05)
+
+- Fix script output not using ASCII
+
 # 1.0.7 (2021-08-05)
 
 - Export command logic for programmatic use
+- Added `down` command
 
 # 1.0.6 (2021-08-05)
 

@@ -55,13 +55,13 @@ export const registerRun: CommandHandler = ({ program }) => {
 
                 processes.forEach(p => {
                     p.stdout.on('data', data => {
-                        console.log(data);
+                        console.log(`${data}`);
                     });
                     p.stderr.on('data', data => {
-                        console.error(red(data));
+                        console.error(red(`${data}`));
                     });
                     p.on('error', err => {
-                        console.error(red(err));
+                        console.error(red(`${err}`));
                     });
                     p.on('close', code => {
                         console.log(yellow(`Exited (${code})`));

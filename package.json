@@ -1,6 +1,6 @@
 {
     "name": "@casthub/devon",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Docker-based Monorepo Local Development CLI",
     "files": ["build"],
     "bin": {
