@@ -29,6 +29,7 @@ export interface DefinitionFile {
     services: Service[];
     environments: Environment[];
     scripts?: Record<string, Script>;
+    composeVersion?: string;
 }
 
 export interface ServiceConfig {

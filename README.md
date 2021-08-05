@@ -48,5 +48,4 @@ If you want `devon` to automate generating and installing local SSL Certificates
 
 ## To-do
 
-- Add mkcert support & automation
 - Add test suite

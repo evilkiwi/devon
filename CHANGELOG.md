@@ -1,3 +1,7 @@
+# 1.0.6 (2021-08-05)
+
+- Allow overriding of `docker-compose` format version
+
 # 1.0.5 (2021-08-04)
 
 - Allow `mkcert` automation

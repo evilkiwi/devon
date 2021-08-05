@@ -62,9 +62,10 @@ export const switchCommand: CommandHandler = ({ config, program }) => {
             }, {});
 
             // Compile docker compose command config.
+            const compiledConfig = await compileCompose(configs);
             const composeConfig: IDockerComposeOptions = {
                 cwd: dir,
-                configAsString: compileCompose(configs),
+                configAsString: compiledConfig,
                 log: false,
             };
 
