@@ -23,7 +23,7 @@ const recognizedFiles = [
     'serverless.yaml',
 ];
 
-export const initCommand: CommandHandler = ({ config, program }) => {
+export const registerInit: CommandHandler = ({ config, program }) => {
     program.command('init')
         .action(async () => {
             const dir = config.get('dir');

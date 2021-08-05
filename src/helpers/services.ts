@@ -16,7 +16,13 @@ export const getServices = async (): Promise<Result> => {
     const filename = config.get('definitionFile');
     const serviceFile = config.get('serviceFile');
     const dir = await cwd();
-    const cfg = require(join(dir, filename));
+    let cfg: any = {};
+
+    try {
+        cfg = require(join(dir, filename));
+    } catch (e) {
+        throw new Error(`Could not find a ${filename} file`);
+    }
 
     if (!cfg?.config) {
         throw new Error('Root definition file not defined correctly');

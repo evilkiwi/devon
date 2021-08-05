@@ -3,7 +3,6 @@ import { register } from 'ts-node';
 import pkg from '../package.json';
 import * as Commands from './commands';
 import { config } from './config';
-import type { CommandHandler } from './types';
 
 // Register ts-node to allow `require` for `.ts` files.
 register({
@@ -21,11 +20,25 @@ program.version(pkg.version)
     .showHelpAfterError('(add --help for additional information)');
 
 // Register the individual commands.
-Object.values<CommandHandler>(Commands).forEach(command => command({
-    program,
-    config,
-}));
+Object.keys(Commands).forEach(command => {
+    if (command.indexOf('register') === -1) {
+        return;
+    }
+
+    (Commands as any)[command]({
+        program,
+        config,
+    });
+});
 
 program.parseAsync(process.argv);
+
+export {
+    runCommand,
+    execCommand,
+    downCommand,
+    switchCommand,
+    installCommand,
+} from './commands';
 
 export * from './types';

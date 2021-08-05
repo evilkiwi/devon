@@ -1,3 +1,7 @@
+# 1.0.7 (2021-08-05)
+
+- Export command logic for programmatic use
+
 # 1.0.6 (2021-08-05)
 
 - Allow overriding of `docker-compose` format version
