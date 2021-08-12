@@ -31,6 +31,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Yarn Dependencies
         run: yarn install --frozen-lockfile
+        working-directory: ./docs
       - name: Build Static
         run: yarn build
         working-directory: ./docs
