@@ -13,7 +13,7 @@ features:
     details: Define your environments and your variables for them, then let Devon manage them for you
   - title: Easy Bootstrapping
     details: Intelligent initialization of Devon allows you to bootstrap an existing monorepo with MySQL, Redis and even an NGINX Proxy
-  - title: No Docker Commands
+  - title: Invisible Docker
     details: With Devon, you'll never have to manually run any Docker commands
   - title: Full TypeScript Configs
     details: We chose TypeScript for our config and definition files, meaning you can enjoy full typing without having to read docs
