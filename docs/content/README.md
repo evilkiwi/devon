@@ -10,7 +10,7 @@ features:
   - title: Multi-command Scripting
     details: Set-up multi-command scripts to run on-the-fly
   - title: Automated Local SSL
-    details: Using mkcert, automate the generation, installation and distribution of trusted local SSL
+    details: Utilizing mkcert, automate the generation, installation and distribution of trusted local SSL
   - title: .env Management
     details: Define your environments and your variables for them, then let Devon manage them for you
   - title: Easy Bootstrapping
