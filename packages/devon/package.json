@@ -26,6 +26,7 @@
         "docker",
         "dev",
         "environment",
+        "development",
         "cli",
         "local",
         "monorepo"
