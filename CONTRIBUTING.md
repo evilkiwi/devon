@@ -1,7 +1,7 @@
 # Contributing to CastHub Open Source
 
 At CastHub we aim to give back to the Developer communities we engage in as often as possible - as such,
-we maintain various Open Source libraries and software, both relted to the CastHub Ecosystem and otherwise.
+we maintain various Open Source libraries and software, both related to the CastHub Ecosystem and otherwise.
 
 We're always welcome to feedback, PRs and constructive criticism of our software.
 

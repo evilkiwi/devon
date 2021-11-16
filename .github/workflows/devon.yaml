@@ -1,0 +1,31 @@
+name: Release Devon
+
+on:
+  push:
+    paths:
+      - 'packages/devon/**'
+    branches:
+      - master
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --immutable
+      - name: Publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          npm publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

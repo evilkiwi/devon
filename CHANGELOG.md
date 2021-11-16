@@ -1,3 +1,10 @@
+# 1.1.0 (2021-11-16)
+
+- Store current services by Project name for better `switch` UX
+- Fix issue when switching between different monorepos (Different folders = different project names)
+- Improve devon repo (made it a monorepo)
+- Various maintenance and library updates
+
 # 1.0.8 (2021-08-05)
 
 - Fix script output not using ASCII

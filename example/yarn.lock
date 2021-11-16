@@ -20,10 +20,10 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@casthub/devon@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@casthub/devon/-/devon-1.0.4.tgz#775412e4bd38eb90370692365d3f3c3b62057f30"
-  integrity sha512-e3QAIayoBFbvvZsBHW/VzQ9vA58aw7qHQYZEnXmahAYneApSVU1NOQT/U1TtBVIGtjbgvZ+s8Ehzxq2IrQRvYg==
+"@casthub/devon@*":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@casthub/devon/-/devon-1.0.8.tgz#38f23204771e9b8845b5abe000e7d119432de581"
+  integrity sha512-V2MGBaUrHFAL1Gu2mwGsJzTP7uDsDquuNcfkKU6aivAA/gSNshDQmOoPk5BVyHuJmA+Fs7hZroMmX4GeeNQiXA==
   dependencies:
     chalk "^4.1.1"
     cli-ux "^5.6.3"
@@ -37,6 +37,7 @@
     js-yaml "^4.1.0"
     listr "^0.14.3"
     ora "^5.4.1"
+    sudo-prompt "^9.2.1"
     ts-node "^10.1.0"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -1762,6 +1763,11 @@ strip-ansi@^6.0.0:
   integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
   dependencies:
     ansi-regex "^5.0.0"
+
+sudo-prompt@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-9.2.1.tgz#77efb84309c9ca489527a4e749f287e6bdd52afd"
+  integrity sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==
 
 supports-color@^2.0.0:
   version "2.0.0"

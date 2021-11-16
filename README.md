@@ -48,4 +48,5 @@ If you want `devon` to automate generating and installing local SSL Certificates
 
 ## To-do
 
-- Add test suite
+- [ ] Add typings for various Docker compose versions
+- [ ] Add test suite
