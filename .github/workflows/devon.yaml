@@ -29,3 +29,4 @@ jobs:
           npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/devon
