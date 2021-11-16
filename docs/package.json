@@ -3,11 +3,11 @@
     "name": "@casthub/devon-docs",
     "version": "1.0.0",
     "scripts": {
-        "dev": "vitepress dev content",
-        "build": "vitepress build content",
-        "serve": "vitepress serve content"
+        "dev": "vuepress-vite dev content",
+        "build": "vuepress-vite build content",
+        "serve": "vuepress-vite serve content"
     },
     "devDependencies": {
-        "vitepress": "^0.16.1"
+        "vuepress-vite": "next"
     }
 }

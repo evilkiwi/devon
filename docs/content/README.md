@@ -1,9 +1,11 @@
 ---
 home: true
-heroText: Devon
+title: Devon
 tagline: Docker-based Monorepo Local Development CLI
-actionText: Get Started
-actionLink: /getting-started/
+actions:
+  - text: Get Started
+    link: /getting-started/
+    type: primary
 features:
   - title: Multi-command Scripting
     details: Set-up multi-command scripts to run on-the-fly
