@@ -18,7 +18,7 @@ If you chose not to add an NGINX Reverse Proxy to your monorepo during the `devo
 `.devon/proxy/.devconfig.ts`
 
 ```typescript
-import type { ServiceConfig } from '@casthub/devon';
+import type { ServiceConfig } from '@tnotifier/devon';
 
 export const config: ServiceConfig = {
     compose: {
@@ -36,7 +36,7 @@ export const config: ServiceConfig = {
 `.devon.ts`
 
 ```typescript
-import type { DefinitionFile } from '@casthub/devon';
+import type { DefinitionFile } from '@tnotifier/devon';
 
 export const config: DefinitionFile = {
     ...

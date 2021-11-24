@@ -4,7 +4,7 @@ import type { ConfigSchema } from '@/types';
 
 export const config = new Conf<ConfigSchema>({
     projectName: 'devon',
-    projectSuffix: 'casthub',
+    projectSuffix: 'tnotifier',
     configName: 'config',
     fileExtension: 'json',
     clearInvalidConfig: true,

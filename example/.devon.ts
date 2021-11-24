@@ -1,4 +1,4 @@
-import type { DefinitionFile } from '@casthub/devon';
+import type { DefinitionFile } from '@tnotifier/devon';
 
 export const config: DefinitionFile = {
     project: 'example',

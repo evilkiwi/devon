@@ -1,4 +1,4 @@
-export const definitionFile = `import type { DefinitionFile } from '@casthub/devon';
+export const definitionFile = `import type { DefinitionFile } from '@tnotifier/devon';
 
 export const config: DefinitionFile = {
     project: '{{project}}',

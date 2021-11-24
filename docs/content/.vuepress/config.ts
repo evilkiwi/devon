@@ -14,7 +14,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     themeConfig: {
         home: '/',
         logo: 'https://vuejs.org/images/logo.png',
-        repo: 'casthub/devon',
+        repo: 'tnotifier/devon',
         docsDir: 'docs/content',
         docsBranch: 'master',
         locales: {

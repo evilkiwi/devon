@@ -5,10 +5,10 @@
         "packages/*"
     ],
     "scripts": {
-        "docs": "yarn workspace @casthub/devon-docs",
-        "devon": "yarn workspace @casthub/devon"
+        "docs": "yarn workspace @tnotifier/devon-docs",
+        "devon": "yarn workspace @tnotifier/devon"
     },
     "devDependencies": {
-        "@casthub/devon": "*"
+        "@tnotifier/devon": "*"
     }
 }

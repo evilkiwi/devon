@@ -24,7 +24,7 @@
 
 # 1.0.4 (2021-08-04)
 
-- Install `@casthub/devon` as a local dev dependency if supported (For type support)
+- Install `@tnotifier/devon` as a local dev dependency if supported (For type support)
 - Don't emit a `.env` file if service doesn't specify any env vars
 - Don't override service-level configs if re-running `init`
 - Update example to show full proxy configs

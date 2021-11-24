@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@casthub/devon-docs",
+    "name": "@tnotifier/devon-docs",
     "version": "1.0.0",
     "scripts": {
         "dev": "vuepress-vite dev content",

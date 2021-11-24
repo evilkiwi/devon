@@ -58,17 +58,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@casthub/devon-docs@workspace:docs":
+"@tnotifier/devon-docs@workspace:docs":
   version: 0.0.0-use.local
-  resolution: "@casthub/devon-docs@workspace:docs"
+  resolution: "@tnotifier/devon-docs@workspace:docs"
   dependencies:
     vuepress-vite: next
   languageName: unknown
   linkType: soft
 
-"@casthub/devon@*, @casthub/devon@workspace:packages/devon":
+"@tnotifier/devon@*, @tnotifier/devon@workspace:packages/devon":
   version: 0.0.0-use.local
-  resolution: "@casthub/devon@workspace:packages/devon"
+  resolution: "@tnotifier/devon@workspace:packages/devon"
   dependencies:
     "@rollup/plugin-alias": ^3.1.8
     "@rollup/plugin-commonjs": ^21.0.1
@@ -3877,7 +3877,7 @@ fsevents@~2.3.2:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@casthub/devon": "*"
+    "@tnotifier/devon": "*"
   languageName: unknown
   linkType: soft
 

@@ -20,9 +20,9 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@casthub/devon@*":
+"@tnotifier/devon@*":
   version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@casthub/devon/-/devon-1.0.8.tgz#38f23204771e9b8845b5abe000e7d119432de581"
+  resolved "https://registry.yarnpkg.com/@tnotifier/devon/-/devon-1.0.8.tgz#38f23204771e9b8845b5abe000e7d119432de581"
   integrity sha512-V2MGBaUrHFAL1Gu2mwGsJzTP7uDsDquuNcfkKU6aivAA/gSNshDQmOoPk5BVyHuJmA+Fs7hZroMmX4GeeNQiXA==
   dependencies:
     chalk "^4.1.1"

@@ -1,4 +1,4 @@
-import type { ServiceConfig } from '@casthub/devon';
+import type { ServiceConfig } from '@tnotifier/devon';
 
 export const config: ServiceConfig = {
     compose: {
