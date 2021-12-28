@@ -124,7 +124,8 @@ export const register: CommandHandler = ({ program }) => {
 
                 await run(answers.services, answers.environment);
             } catch (e) {
-                console.error(red((e as Error).message));
+                // console.error(red((e as Error).message));
+                console.error(e);
             }
         });
 };
