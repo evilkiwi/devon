@@ -32,14 +32,18 @@ export const getServices = async (): Promise<Result> => {
         await promise;
 
         const path = join(dir, service.path ?? service.name, serviceFile);
-        console.log('dir', dir, 'service', service, 'serviceFile', serviceFile);
-        const fetch = require(path);
 
-        if (fetch.config) {
-            services[service.name] = {
-                definition: service,
-                config: fetch.config,
-            };
+        try {
+            const fetch = require(path);
+
+            if (fetch.config) {
+                services[service.name] = {
+                    definition: service,
+                    config: fetch.config,
+                };
+            }
+        } catch {
+            throw new Error(`Could not include service @ ${path}`);
         }
     }, Promise.resolve());
 
