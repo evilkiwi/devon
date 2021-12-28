@@ -32,6 +32,7 @@ export const getServices = async (): Promise<Result> => {
         await promise;
 
         const path = join(dir, service.path ?? service.name, serviceFile);
+        console.log('dir', dir, 'service', service, 'serviceFile', serviceFile);
         const fetch = require(path);
 
         if (fetch.config) {
