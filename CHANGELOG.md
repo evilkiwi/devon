@@ -1,3 +1,10 @@
+# 1.2.2 (2022-01-25)
+
+- Fixed `proxy` template conf file host
+- Improved feedback of the `install` command
+- Added manual instructions for macOS 11+ users
+- Updated dependencies
+
 # 1.1.0 (2021-11-16)
 
 - Store current services by Project name for better `switch` UX

@@ -24,7 +24,7 @@ export const proxyExample = `server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_set_header Host $host;
-        proxy_pass http://app:3000;
+        proxy_pass http://host.docker.internal:3000;
         proxy_redirect off;
         proxy_http_version 1.1;
 	    proxy_set_header Upgrade $http_upgrade;
