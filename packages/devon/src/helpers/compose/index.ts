@@ -19,5 +19,8 @@ export const compileCompose = async (configs: Record<string, ServiceConfig>) => 
     return dump({
         version,
         services,
+        ...(definition.networks !== undefined ? {
+            networks: definition.networks,
+        } : {}),
     });
 };

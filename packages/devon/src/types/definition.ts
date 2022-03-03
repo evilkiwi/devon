@@ -22,6 +22,13 @@ export interface Script {
     desc?: string;
 }
 
+export interface Network {
+    name?: string;
+    driver: string;
+    driver_opts?: Record<string, unknown>;
+    [key: string]: unknown;
+}
+
 export type EnvVars = Record<string, unknown>;
 
 export interface DefinitionFile {
@@ -29,6 +36,7 @@ export interface DefinitionFile {
     services: Service[];
     environments: Environment[];
     scripts?: Record<string, Script>;
+    networks?: Record<string, Network>;
     composeVersion?: string;
 }
 

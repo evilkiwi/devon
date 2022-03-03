@@ -1,3 +1,7 @@
+# 1.3.0 (2022-03-03)
+
+- Added support for defining custom Networks
+
 # 1.2.2 (2022-01-25)
 
 - Fixed `proxy` template conf file host
