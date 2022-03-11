@@ -1,6 +1,6 @@
 import { cwd as current } from 'process';
-import { pathExists } from 'fs-extra';
 import { join } from 'path';
+import fs from 'fs-extra';
 import { config } from '../../config';
 
 export const cwd = async (enforceExisting = false) => {
@@ -18,7 +18,7 @@ export const cwd = async (enforceExisting = false) => {
 
         const depthStrings = [...Array(depth).keys()].map(() => '..');
         const path = join(dir, ...depthStrings);
-        const exists = await pathExists(join(path, filename));
+        const exists = await fs.pathExists(join(path, filename));
 
         if (exists) {
             found = path;

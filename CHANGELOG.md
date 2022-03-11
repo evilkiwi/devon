@@ -1,3 +1,9 @@
+# 2.0.1 (2022-03-11)
+
+- `domains` definition in `.devon.ts`
+- `gen-certs` command to re-generate certificates files based `domains` definition
+- Detect WSL1/2 and warn about running `devon install` in Windows too
+
 # 2.0.0 (2022-03-11)
 
 - Moved bundler to `unbuild`

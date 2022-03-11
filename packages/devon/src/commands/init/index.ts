@@ -1,16 +1,14 @@
-import { emptyDir, pathExists, outputFile } from 'fs-extra';
-import { cwd as originalCWD, chdir } from 'process';
 import { exec as e } from 'child_process';
 import handlebars from 'handlebars';
 import { join, sep } from 'path';
 import { promisify } from 'util';
 import inquirer from 'inquirer';
-import sudo from 'sudo-prompt';
 import consola from 'consola';
+import fs from 'fs-extra';
 import ora from 'ora';
+import { cwd, glob, generateCertificates, generateAuthority } from '../../helpers';
 import type { CommandHandler } from '../../types';
 import * as templates from '../../templates';
-import { cwd, glob } from '../../helpers';
 
 const exec = promisify(e);
 
@@ -35,7 +33,7 @@ export const register: CommandHandler = ({ config, program }) => {
             const definitionPath = join(path, filename);
 
             // Check this cwd isn't already initialized.
-            const existing = await pathExists(definitionPath);
+            const existing = await fs.pathExists(definitionPath);
 
             if (existing) {
                 consola.warn('devon is already initialized in working directory');
@@ -140,11 +138,11 @@ export const register: CommandHandler = ({ config, program }) => {
 
             try {
                 // Ensure the data folders exist and are empty.
-                await emptyDir(dataPath);
-                await emptyDir(join(dataPath, dataFolder));
+                await fs.emptyDir(dataPath);
+                await fs.emptyDir(join(dataPath, dataFolder));
 
                 // Create the gitignore for mounted filesystem data.
-                await outputFile(join(dataPath, '.gitignore'), dataFolder);
+                await fs.outputFile(join(dataPath, '.gitignore'), dataFolder);
 
                 // Attempt to install as a global dev dependency.
                 try {
@@ -185,8 +183,8 @@ export const register: CommandHandler = ({ config, program }) => {
                     const cfg = handlebars.compile((templates as any)[service]);
                     const chosenPath = join(dataPath, service);
 
-                    await emptyDir(chosenPath);
-                    await outputFile(join(chosenPath, serviceFilename), cfg(input));
+                    await fs.emptyDir(chosenPath);
+                    await fs.outputFile(join(chosenPath, serviceFilename), cfg(input));
                 }, Promise.resolve());
 
                 // Output config files to each service.
@@ -198,76 +196,46 @@ export const register: CommandHandler = ({ config, program }) => {
 
                     if (conf) {
                         const servicePath = join(path, conf, serviceFilename);
-                        const exists = await pathExists(servicePath);
+                        const exists = await fs.pathExists(servicePath);
 
                         if (!exists) {
-                            await outputFile(join(path, conf, serviceFilename), serviceConfig(input));
+                            await fs.outputFile(join(path, conf, serviceFilename), serviceConfig(input));
                         }
                     }
                 }, Promise.resolve());
 
                 // If they enabled the proxy, create the additional files for that.
+                let proxyDomains: string[] = [];
+
                 if (answers.proxy) {
                     const proxyPath = join(dataPath, 'proxy');
 
                     init.text = 'generating proxy certificates';
 
-                    await emptyDir(join(proxyPath, 'sites'));
-                    await emptyDir(join(proxyPath, 'certs'));
+                    await fs.emptyDir(join(proxyPath, 'sites'));
+                    await fs.emptyDir(join(proxyPath, 'certs'));
 
-                    await outputFile(join(proxyPath, 'sites', 'app.conf'), templates.proxyExample);
+                    await fs.outputFile(join(proxyPath, 'sites', 'app.conf'), templates.proxyExample);
 
                     if (answers.ssl) {
-                        // Install the new CA keys.
-                        await new Promise<void>((resolve, reject) => {
-                            sudo.exec('mkcert -install', {
-                                name: 'devon',
-                                env: {
-                                    CAROOT: join(proxyPath, 'certs'),
-                                },
-                            }, err => {
-                                if (err) {
-                                    reject(err);
-                                    return;
-                                }
+                        // Generate and Install the CA.
+                        await generateAuthority(proxyPath);
 
-                                resolve();
-                            });
-                        });
+                        // Generate the usable SSL Certificates.
+                        proxyDomains.push(...(answers.domains ?? '').split(' '));
 
-                        // Generate the usable SSLs.
-                        const domains = (answers.domains ?? '').split(' ');
-
-                        if (domains.length && domains[0].length) {
-                            const ogCWD = originalCWD();
-
-                            chdir(join(proxyPath, 'certs'));
-
-                            await new Promise<void>((resolve, reject) => {
-                                sudo.exec(`mkcert ${domains.join(' ')}`, {
-                                    name: 'devon',
-                                    env: {
-                                        CAROOT: join(proxyPath, 'certs'),
-                                    },
-                                }, err => {
-                                    if (err) {
-                                        reject(err);
-                                        return;
-                                    }
-
-                                    resolve();
-                                });
-                            });
-
-                            chdir(ogCWD);
+                        if (proxyDomains.length && proxyDomains[0].length) {
+                            await generateCertificates(proxyPath, proxyDomains);
                         }
                     }
                 }
 
                 // Save the definition file.
                 const definition = handlebars.compile(templates.definitionFile);
-                await outputFile(definitionPath, definition({
+
+                await fs.outputFile(definitionPath, definition({
                     ...input,
+                    proxyDomains,
                     services: [
                         ...answers.bootstrap.map(name => ({
                             name,
@@ -282,6 +250,7 @@ export const register: CommandHandler = ({ config, program }) => {
 
                 init.stop();
                 consola.success('finished setting up!');
+                consola.log('');
                 consola.log(`definition file saved to ${definitionPath}`);
                 consola.log('');
                 consola.log('run `devon switch` to start your new environment');

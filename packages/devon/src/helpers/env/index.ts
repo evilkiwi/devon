@@ -1,5 +1,5 @@
-import { outputFile } from 'fs-extra';
 import { join } from 'path';
+import fs from 'fs-extra';
 import { getServices } from '../services';
 import { cwd } from '../cwd';
 
@@ -25,7 +25,7 @@ export const generateEnv = async (env: string) => {
         };
 
         if (Object.keys(compiledEnv).length) {
-            await outputFile(join(dir, path, '.env'), objToEnv(compiledEnv));
+            await fs.outputFile(join(dir, path, '.env'), objToEnv(compiledEnv));
         }
     }, Promise.resolve());
 };

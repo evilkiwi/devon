@@ -1,8 +1,9 @@
 import { release, platform } from 'os';
-import { pathExists } from 'fs-extra';
 import { join, resolve } from 'path';
 import sudo from 'sudo-prompt';
 import consola from 'consola';
+import isWsl from 'is-wsl';
+import fs from 'fs-extra';
 import ora from 'ora';
 import type { CommandHandler } from '../../types';
 import { config } from '../../config';
@@ -15,7 +16,7 @@ export const run = async () => {
     const proxyPath = join(dataPath, 'proxy');
 
     // Install the CA certificate if it exists.
-    const certsExists = await pathExists(join(proxyPath, 'certs', 'rootCA.pem'));
+    const certsExists = await fs.pathExists(join(proxyPath, 'certs', 'rootCA.pem'));
 
     if (!certsExists) {
         throw new Error('this monorepo has no certificates to install');
@@ -63,6 +64,11 @@ export const register: CommandHandler = ({ program }) => {
                     consola.success('awesome! everything is installed and ready-to-go');
                     consola.log('');
                     consola.log('run `devon switch` to get started!');
+
+                    if (isWsl) {
+                        consola.log('');
+                        consola.warn('seems like you\'re running WSL, make sure to `devon install` in Windows too (via git bash or others)');
+                    }
                 }
             } catch (e) {
                 install.stop();

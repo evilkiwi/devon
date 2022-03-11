@@ -33,6 +33,7 @@ export type EnvVars = Record<string, unknown>;
 
 export interface DefinitionFile {
     project: string;
+    domains?: string[];
     services: Service[];
     environments: Environment[];
     scripts?: Record<string, Script>;
