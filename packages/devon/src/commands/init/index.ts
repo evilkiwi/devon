@@ -1,16 +1,16 @@
 import { emptyDir, pathExists, outputFile } from 'fs-extra';
 import { cwd as originalCWD, chdir } from 'process';
-import { green, red, yellow } from 'chalk';
 import { exec as e } from 'child_process';
 import handlebars from 'handlebars';
 import { join, sep } from 'path';
 import { promisify } from 'util';
 import inquirer from 'inquirer';
 import sudo from 'sudo-prompt';
+import consola from 'consola';
 import ora from 'ora';
-import type { CommandHandler, Service } from '@/types';
-import * as templates from '@/templates';
-import { cwd, glob } from '@/helpers';
+import type { CommandHandler } from '../../types';
+import * as templates from '../../templates';
+import { cwd, glob } from '../../helpers';
 
 const exec = promisify(e);
 
@@ -38,7 +38,7 @@ export const register: CommandHandler = ({ config, program }) => {
             const existing = await pathExists(definitionPath);
 
             if (existing) {
-                console.log(yellow('devon is already initialized in working directory'));
+                consola.warn('devon is already initialized in working directory');
                 return;
             }
 
@@ -70,11 +70,11 @@ export const register: CommandHandler = ({ config, program }) => {
             }>([{
                 type: 'input',
                 name: 'project',
-                message: 'Project Name',
+                message: 'project name',
                 default: projectName,
                 validate: (name: string) => {
                     if (!name.length) {
-                        return 'Project Name is required';
+                        return 'project name is required';
                     }
 
                     return true;
@@ -82,7 +82,7 @@ export const register: CommandHandler = ({ config, program }) => {
             }, {
                 type: 'list',
                 name: 'manager',
-                message: 'Which Package Manager do you use?',
+                message: 'which package manager do you use?',
                 choices: [{
                     name: 'Yarn',
                     value: 'yarn',
@@ -96,7 +96,7 @@ export const register: CommandHandler = ({ config, program }) => {
             }, {
                 type: 'checkbox',
                 name: 'bootstrap',
-                message: 'Bootstrap existing Services?',
+                message: 'bootstrap existing services?',
                 choices: services.map(name => ({
                     name,
                     value: name,
@@ -104,7 +104,7 @@ export const register: CommandHandler = ({ config, program }) => {
             }, {
                 type: 'list',
                 name: 'db',
-                message: 'Add a Database?',
+                message: 'add a database?',
                 choices: [{
                     name: 'None',
                     value: null,
@@ -118,25 +118,25 @@ export const register: CommandHandler = ({ config, program }) => {
             }, {
                 type: 'confirm',
                 name: 'redis',
-                message: 'Add Redis?',
+                message: 'add redis?',
             }, {
                 type: 'confirm',
                 name: 'proxy',
-                message: 'Add NGINX Reverse Proxy?',
+                message: 'add an nginx proxy?',
             }, {
                 type: 'confirm',
                 name: 'ssl',
-                message: 'Automate local SSL? (You must install mkcert, see README)',
+                message: 'automate local ssl? (you must install mkcert, see docs)',
                 when: ({ proxy }) => proxy,
             }, {
                 type: 'input',
                 name: 'domains',
-                message: 'Domains for SSL Certificate (separate with space)',
+                message: 'domains for ssl certificate (separate with space)',
                 when: ({ ssl }) => ssl,
             }]);
 
-            console.log('');
-            const init = ora('Setting up').start();
+            consola.log('');
+            const init = ora('setting up').start();
 
             try {
                 // Ensure the data folders exist and are empty.
@@ -156,7 +156,7 @@ export const register: CommandHandler = ({ config, program }) => {
                     }
 
                     if (command.length) {
-                        init.text = 'Installing global devdependency';
+                        init.text = 'installing global dev-dependency';
                         await exec(command, {
                             cwd: dir,
                         });
@@ -179,7 +179,7 @@ export const register: CommandHandler = ({ config, program }) => {
                     ...(answers.db ? [answers.db] : []),
                 ];
 
-                init.text = 'Compiling service configs';
+                init.text = 'compiling service configs';
 
                 await chosen.reduce(async (promise, service) => {
                     const cfg = handlebars.compile((templates as any)[service]);
@@ -210,7 +210,7 @@ export const register: CommandHandler = ({ config, program }) => {
                 if (answers.proxy) {
                     const proxyPath = join(dataPath, 'proxy');
 
-                    init.text = 'Generating proxy certificates';
+                    init.text = 'generating proxy certificates';
 
                     await emptyDir(join(proxyPath, 'sites'));
                     await emptyDir(join(proxyPath, 'certs'));
@@ -281,13 +281,13 @@ export const register: CommandHandler = ({ config, program }) => {
                 }));
 
                 init.stop();
-                console.log(green('Finished setting up!'));
-                console.log(yellow(`Definition file saved to ${definitionPath}`));
-                console.log('');
-                console.log(yellow('Run "devon switch" to start your new environment'));
+                consola.success('finished setting up!');
+                consola.log(`definition file saved to ${definitionPath}`);
+                consola.log('');
+                consola.log('run `devon switch` to start your new environment');
             } catch (e) {
                 init.stop();
-                console.error(red('Could not set-up devon:', (e as Error).message));
+                consola.error(`could not set-up devon: ${e}`);
             }
         });
 };

@@ -1,7 +1,7 @@
 import { cwd as current } from 'process';
 import { pathExists } from 'fs-extra';
 import { join } from 'path';
-import { config } from '@/config';
+import { config } from '../../config';
 
 export const cwd = async (enforceExisting = false) => {
     const filename = config.get('definitionFile');
@@ -26,7 +26,7 @@ export const cwd = async (enforceExisting = false) => {
     }, Promise.resolve());
 
     if (enforceExisting && found === null) {
-        throw new Error('No devon definition file found');
+        throw new Error('no .devon.ts file found');
     }
 
     return found ?? dir;

@@ -1,4 +1,4 @@
-import type { Service, DefinitionFile, ServiceConfig } from '@/types';
+import type { Service, DefinitionFile, ServiceConfig } from '../../types';
 
 export interface Result {
     definition: DefinitionFile;

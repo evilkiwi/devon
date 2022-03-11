@@ -1,9 +1,9 @@
 import compose from 'docker-compose';
-import { green, red } from 'chalk';
+import consola from 'consola';
 import ora from 'ora';
-import type { CommandHandler } from '@/types';
-import { config } from '@/config';
-import { cwd } from '@/helpers';
+import type { CommandHandler } from '../../types';
+import { config } from '../../config';
+import { cwd } from '../../helpers';
 
 export const run = async () => {
     const existingCompose = config.get('currentCompose');
@@ -22,7 +22,7 @@ export const run = async () => {
                 log: false,
             });
         } catch (e) {
-            console.log(e);
+            consola.error(e as Error);
         }
 
         config.set('currentCompose', null);
@@ -32,15 +32,15 @@ export const run = async () => {
 export const register: CommandHandler = ({ program }) => {
     program.command('down')
         .action(async () => {
-            const running = ora('Pulling down previous containers').start();
+            const running = ora('pulling down previous containers').start();
 
             try {
                 await run();
                 running.stop();
-                console.log(green('All containers downed'));
+                consola.success('all containers downed');
             } catch (e) {
                 running.stop();
-                console.error(red((e as Error).message));
+                consola.error(e as Error);
             }
         });
 };

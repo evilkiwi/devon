@@ -1,15 +1,15 @@
 import compose from 'docker-compose';
-import { red } from 'chalk';
+import consola from 'consola';
 import ora from 'ora';
-import type { CommandHandler } from '@/types';
-import { config } from '@/config';
-import { cwd } from '@/helpers';
+import type { CommandHandler } from '../../types';
+import { config } from '../../config';
+import { cwd } from '../../helpers';
 
 export const run = async (service: string, command: string[]) => {
     const currentCompose = config.get('currentCompose');
 
     if (!currentCompose) {
-        throw new Error('No containers running');
+        throw new Error('no containers running - run `devon switch`');
     }
 
     const dir = await cwd();
@@ -29,16 +29,16 @@ export const run = async (service: string, command: string[]) => {
 export const register: CommandHandler = ({ program }) => {
     program.command('exec <service> <cmd...>')
         .action(async (service: string, cmd: string[]) => {
-            const progress = ora(`Running "${cmd.join(' ')}" in "${service}"`).start();
+            const progress = ora(`running "${cmd.join(' ')}" in "${service}"`).start();
 
             try {
                 const out = await run(service, cmd);
 
                 progress.stop();
-                console.log(out);
+                consola.log(out);
             } catch (e) {
                 progress.stop();
-                console.log(red((e as Error).message));
+                consola.error(e as Error);
             }
         });
 };

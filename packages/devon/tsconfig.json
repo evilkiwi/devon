@@ -2,8 +2,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "outDir": "./build/",
-        "module": "es2015",
-        "target": "es5",
+        "module": "esnext",
+        "target": "esnext",
         "strict": true,
         "jsx": "preserve",
         "importHelpers": true,
@@ -19,8 +19,7 @@
         "downlevelIteration": true,
         "declaration": true,
         "paths": {
-            "*": ["./src/types/*.d.ts"],
-            "@/*": ["./src/*"]
+            "*": ["./src/types/*.d.ts"]
         }
     },
     "include": [

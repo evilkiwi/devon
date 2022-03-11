@@ -1,6 +1,6 @@
 import { join } from 'path';
-import type { Service, DefinitionFile, ServiceConfig } from '@/types';
-import { config } from '@/config';
+import type { Service, DefinitionFile, ServiceConfig } from '../../types';
+import { config } from '../../config';
 import { cwd } from '../cwd';
 import type { Result } from './types';
 
@@ -14,11 +14,11 @@ export const getServices = async (): Promise<Result> => {
     try {
         cfg = require(join(dir, filename));
     } catch (e) {
-        throw new Error(`Could not find a ${filename} file`);
+        throw new Error(`could not find a ${filename} file`);
     }
 
     if (!cfg?.config) {
-        throw new Error('Root definition file not defined correctly');
+        throw new Error('root definition file not defined correctly');
     }
 
     const definition: DefinitionFile = cfg.config;
@@ -43,7 +43,7 @@ export const getServices = async (): Promise<Result> => {
                 };
             }
         } catch {
-            throw new Error(`Could not include service @ ${path}`);
+            throw new Error(`could not include service @ ${path}`);
         }
     }, Promise.resolve());
 

@@ -1,5 +1,5 @@
 import { dump } from 'js-yaml';
-import type { ServiceConfig } from '@/types';
+import type { ServiceConfig } from '../../types';
 import { getServices } from '../services';
 
 // TODO: Typing docker-compose format?

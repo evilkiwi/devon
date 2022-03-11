@@ -1,29 +1,28 @@
 import { spawn } from 'child_process';
-import { red, yellow } from 'chalk';
-import ux from 'cli-ux';
-import type { Command, CommandHandler, Script } from '@/types';
-import { getServices } from '@/helpers';
+import { CliUx } from '@oclif/core';
+import consola from 'consola';
+import type { Command, CommandHandler } from '../../types';
+import { getServices } from '../../helpers';
 
 export const run = async (scripts?: string[]) => {
     const { definition } = await getServices();
     const available = definition.scripts ?? {};
 
     if (!Object.keys(available).length) {
-        throw new Error('There are no configured scripts');
+        throw new Error('there are no configured scripts');
     }
 
     if (!scripts) {
-        ux.table(Object.keys(available).reduce<Script[]>((arr, name) => {
-            return [
-                ...arr,
-                { ...available[name], name },
-            ];
-        }, []), {
-            name: {},
-            desc: {
-                header: 'Description',
+        CliUx.ux.table(
+            Object.keys(available).reduce<Record<string, unknown>[]>((arr, name) => {
+                return [ ...arr, { ...available[name], name } ];
+            }, []),
+            {
+                name: {},
+                desc: { header: 'description' },
             },
-        });
+        );
+
         return [];
     }
 
@@ -39,7 +38,7 @@ export const run = async (scripts?: string[]) => {
     }, []);
 
     if (!commands.length) {
-        throw new Error('No commands by these name(s) exist');
+        throw new Error('no commands by these name(s) exist');
     }
 
     return commands.map(cmd => {
@@ -54,21 +53,13 @@ export const register: CommandHandler = ({ program }) => {
                 const processes = await run(scripts);
 
                 processes.forEach(p => {
-                    p.stdout.on('data', data => {
-                        console.log(`${data}`);
-                    });
-                    p.stderr.on('data', data => {
-                        console.error(red(`${data}`));
-                    });
-                    p.on('error', err => {
-                        console.error(red(`${err}`));
-                    });
-                    p.on('close', code => {
-                        console.log(yellow(`Exited (${code})`));
-                    });
+                    p.stdout.on('data', data => consola.log(data));
+                    p.stderr.on('data', data => consola.error(data));
+                    p.on('error', e => consola.error(e));
+                    p.on('close', code => consola.info(`Exited (${code})`));
                 });
             } catch (e) {
-                console.log(red((e as Error).message));
+                consola.error(e as Error);
             }
         });
 };

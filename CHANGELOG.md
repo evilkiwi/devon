@@ -1,3 +1,12 @@
+# 2.0.0 (2022-03-11)
+
+- Moved bundler to `unbuild`
+- Use NodeJS ESM as a default export
+- Renamed company to Evil Kiwi Limited
+- Enforce NodeJS version support via `package.json` `engines`
+- Added a new `interact` command for starting a shell inside a container
+- Updated dependencies
+
 # 1.3.0 (2022-03-03)
 
 - Added support for defining custom Networks
