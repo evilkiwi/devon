@@ -1,4 +1,4 @@
-# 2.0.2 (2022-03-14)
+# 2.0.3 (2022-03-14)
 
 - Added auto-generated `docker-compose` typings
 
