@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "./build/",
+        "module": "esnext",
+        "target": "esnext",
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "disableSizeLimit": true,
+        "downlevelIteration": true,
+        "declaration": true,
+        "paths": {
+            "*": ["./src/types/*.d.ts"]
+        }
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

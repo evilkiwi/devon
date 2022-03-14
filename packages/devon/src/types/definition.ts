@@ -1,3 +1,5 @@
+import type { DefinitionsService, DefinitionsNetwork } from '@tnotifier/devon-compose-spec';
+
 export interface Service {
     name: string;
     path?: string;
@@ -22,13 +24,6 @@ export interface Script {
     desc?: string;
 }
 
-export interface Network {
-    name?: string;
-    driver: string;
-    driver_opts?: Record<string, unknown>;
-    [key: string]: unknown;
-}
-
 export type EnvVars = Record<string, unknown>;
 
 export interface DefinitionFile {
@@ -37,7 +32,7 @@ export interface DefinitionFile {
     services: Service[];
     environments: Environment[];
     scripts?: Record<string, Script>;
-    networks?: Record<string, Network>;
+    networks?: Record<string, DefinitionsNetwork>;
     composeVersion?: string;
 }
 
@@ -45,5 +40,5 @@ export interface ServiceConfig {
     env?: {
         [env: string]: EnvVars;
     };
-    compose?: any; // TODO: Find decent typings for various Compose versions
+    compose?: DefinitionsService;
 }

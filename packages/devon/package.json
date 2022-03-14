@@ -1,6 +1,6 @@
 {
     "name": "@tnotifier/devon",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Docker-based Monorepo Local Development CLI",
     "type": "module",
     "files": [
@@ -63,6 +63,7 @@
         "typescript": "4.6.2"
     },
     "devDependencies": {
+        "@tnotifier/devon-compose-spec": "*",
         "@types/fs-extra": "^9.0.13",
         "@types/glob": "^7.2.0",
         "@types/inquirer": "^8.2.0",

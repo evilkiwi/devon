@@ -2,7 +2,7 @@
     <a href="https://www.npmjs.com/package/@tnotifier/devon" target="_blank">
         <img src="https://img.shields.io/npm/v/@tnotifier/devon?style=flat-square" alt="NPM" />
     </a>
-    <a href="https://discord.gg/XMrHXtN" target="_blank">
+    <a href="https://tnfr.link/discord" target="_blank">
         <img src="https://img.shields.io/discord/123906549860139008?color=7289DA&label=discord&logo=discord&logoColor=FFFFFF&style=flat-square" alt="Discord" />
     </a>
     <img src="https://img.shields.io/npm/l/@tnotifier/devon?style=flat-square" alt="Apache-2.0" />
@@ -50,5 +50,4 @@ You can view the [online documentation here](https://docs.tnotifier.app/devon/).
 
 ## To-do
 
-- [ ] Add typings for various Docker compose versions
 - [ ] Add test suite

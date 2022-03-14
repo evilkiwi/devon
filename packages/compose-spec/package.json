@@ -1,0 +1,36 @@
+{
+    "name": "@tnotifier/devon-compose-spec",
+    "version": "1.0.0",
+    "description": "Docker Compose TypeScript types generated from JSONSchema",
+    "files": [
+        "lib"
+    ],
+    "types": "./lib/index.ts",
+    "license": "GPL-3.0-only",
+    "author": {
+        "name": "Evil Kiwi Limited",
+        "url": "https://evil.kiwi",
+        "email": "support@tnotifier.app"
+    },
+    "homepage": "https://github.com/tnotifier/devon",
+    "bugs": {
+        "url": "https://github.com/tnotifier/devon/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tnotifier/devon.git"
+    },
+    "keywords": [
+        "docker",
+        "compose",
+        "types",
+        "typescript"
+    ],
+    "scripts": {
+        "generate": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/generated.ts"
+    },
+    "devDependencies": {
+        "json-schema-to-typescript": "^10.1.5",
+        "typescript": "^4.6.2"
+    }
+}

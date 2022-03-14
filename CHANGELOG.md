@@ -1,3 +1,7 @@
+# 2.0.2 (2022-03-14)
+
+- Added auto-generated `docker-compose` typings
+
 # 2.0.1 (2022-03-11)
 
 - `domains` definition in `.devon.ts`
