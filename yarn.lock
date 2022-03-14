@@ -286,9 +286,7 @@ __metadata:
   resolution: "@tnotifier/devon-compose-spec@workspace:packages/compose-spec"
   dependencies:
     json-schema-to-typescript: ^10.1.5
-    rimraf: ^3.0.2
     typescript: ^4.6.2
-    unbuild: ^0.7.0
   languageName: unknown
   linkType: soft
 
