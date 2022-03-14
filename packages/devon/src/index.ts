@@ -7,7 +7,7 @@ import { config } from './config';
 import type { CommandPayload } from './types';
 
 export function main() {
-    // Register ts-node to allow `require` for `.ts` files.
+    // Register ts-node to allow importing of `.ts` files at runtime.
     register({
         emit: false,
         pretty: true,
