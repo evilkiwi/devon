@@ -6,3 +6,4 @@ export * as install from './install';
 export * as interact from './interact';
 export * as run from './run';
 export * as switch from './switch';
+export * as yaml from './yaml';
