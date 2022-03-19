@@ -1,6 +1,6 @@
 {
     "name": "@tnotifier/devon",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "Docker-based Monorepo Local Development CLI",
     "type": "module",
     "files": [
@@ -11,7 +11,9 @@
         ".": "./build/index.mjs",
         "./cli": "./bin/devon.mjs"
     },
-    "bin": "./bin/devon.mjs",
+    "bin": {
+        "devon": "./bin/devon.mjs"
+    },
     "main": "./build/index.cjs",
     "types": "./build/index.d.ts",
     "license": "GPL-3.0-only",
