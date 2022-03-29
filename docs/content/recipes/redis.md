@@ -18,7 +18,7 @@ If you chose not to add Redis to your monorepo during the `devon init` command, 
 `.devon/redis/.devconfig.ts`
 
 ```typescript
-import type { ServiceConfig } from '@tnotifier/devon';
+import type { ServiceConfig } from '@evilkiwi/devon';
 
 export const config: ServiceConfig = {
     compose: {
@@ -35,7 +35,7 @@ export const config: ServiceConfig = {
 `.devon.ts`
 
 ```typescript
-import type { DefinitionFile } from '@tnotifier/devon';
+import type { DefinitionFile } from '@evilkiwi/devon';
 
 export const config: DefinitionFile = {
     ...

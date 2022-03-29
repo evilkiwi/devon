@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@tnotifier/devon-docs",
+    "name": "@evilkiwi/devon-docs",
     "version": "1.0.1",
     "scripts": {
         "dev": "vuepress-vite dev content",

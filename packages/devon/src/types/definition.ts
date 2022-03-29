@@ -1,4 +1,4 @@
-import type { DefinitionsService, DefinitionsNetwork } from '@tnotifier/devon-compose-spec';
+import type { DefinitionsService, DefinitionsNetwork } from '@evilkiwi/devon-compose-spec';
 
 export interface Service {
     name: string;

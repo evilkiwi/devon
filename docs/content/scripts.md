@@ -22,7 +22,7 @@ In your top-level definition file (`.devon.ts`), you can add a `scripts` object.
 For example, to define a command that runs all frontend dev scripts:
 
 ```typescript
-import type { DefinitionFile } from '@tnotifier/devon';
+import type { DefinitionFile } from '@evilkiwi/devon';
 
 export const config: DefinitionFile = {
     ...

@@ -1,15 +1,15 @@
 <div align="center">
-    <a href="https://www.npmjs.com/package/@tnotifier/devon" target="_blank">
-        <img src="https://img.shields.io/npm/v/@tnotifier/devon?style=flat-square" alt="NPM" />
+    <a href="https://www.npmjs.com/package/@evilkiwi/devon" target="_blank">
+        <img src="https://img.shields.io/npm/v/@evilkiwi/devon?style=flat-square" alt="NPM" />
     </a>
     <a href="https://tnfr.link/discord" target="_blank">
         <img src="https://img.shields.io/discord/123906549860139008?color=7289DA&label=discord&logo=discord&logoColor=FFFFFF&style=flat-square" alt="Discord" />
     </a>
-    <img src="https://img.shields.io/npm/l/@tnotifier/devon?style=flat-square" alt="Apache-2.0" />
+    <img src="https://img.shields.io/npm/l/@evilkiwi/devon?style=flat-square" alt="Apache-2.0" />
     <h3>Docker-based Monorepo Local Development CLI</h3>
 </div>
 
-`@tnotifier/devon` is a node-based CLI tool aiming to bridge the gap between production and local development for monorepos.
+`@evilkiwi/devon` is a node-based CLI tool aiming to bridge the gap between production and local development for monorepos.
 
 - Configure multi-command Scripts for common development workflows
 - Automate trusted local SSL certificates out-of-the-box
@@ -23,11 +23,11 @@
 This package is available via NPM:
 
 ```bash
-yarn global add @tnotifier/devon
+yarn global add @evilkiwi/devon
 
 # or
 
-npm install -g @tnotifier/devon
+npm install -g @evilkiwi/devon
 ```
 
 **You also need to have Docker installed on your local machine.** It can be downloaded via [docker.com](https://www.docker.com/products/docker-desktop).
@@ -36,7 +36,7 @@ If you want `devon` to automate generating and installing local SSL Certificates
 
 ## Documentation
 
-You can view the [online documentation here](https://docs.tnotifier.app/devon/).
+You can view the [online documentation here](https://docs.evil.kiwi/devon/).
 
 ## Usage
 

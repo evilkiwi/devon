@@ -149,8 +149,8 @@ export const register: CommandHandler = ({ config, program }) => {
                     let command = '';
 
                     switch (answers.manager) {
-                        case 'yarn': command = 'yarn add @tnotifier/devon --dev -W'; break;
-                        case 'npm': command = 'npm install --dev @tnotifier/devon'; break;
+                        case 'yarn': command = 'yarn add @evilkiwi/devon --dev -W'; break;
+                        case 'npm': command = 'npm install --dev @evilkiwi/devon'; break;
                     }
 
                     if (command.length) {

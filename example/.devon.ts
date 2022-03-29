@@ -1,4 +1,4 @@
-import type { DefinitionFile } from '@tnotifier/devon';
+import type { DefinitionFile } from '@evilkiwi/devon';
 
 export const config: DefinitionFile = {
     project: 'example',

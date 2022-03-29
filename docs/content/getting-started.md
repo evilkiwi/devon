@@ -16,11 +16,11 @@ head:
 Devon is distributed as a NodeJS-based CLI through npm. You can install it locally, but it's easier to work with when installed globally:
 
 ```bash
-yarn global add @tnotifier/devon
+yarn global add @evilkiwi/devon
 
 # or
 
-npm install -g @tnotifier/devon
+npm install -g @evilkiwi/devon
 ```
 
 ::: warning

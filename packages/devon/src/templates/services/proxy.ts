@@ -1,4 +1,4 @@
-export const proxy = `import type { ServiceConfig } from '@tnotifier/devon';
+export const proxy = `import type { ServiceConfig } from '@evilkiwi/devon';
 
 export const config: ServiceConfig = {
     compose: {

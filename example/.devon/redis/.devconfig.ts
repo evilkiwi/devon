@@ -1,4 +1,4 @@
-import type { ServiceConfig } from '@tnotifier/devon';
+import type { ServiceConfig } from '@evilkiwi/devon';
 
 export const config: ServiceConfig = {
     compose: {

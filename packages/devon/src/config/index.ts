@@ -4,7 +4,7 @@ import pkg from '../../package.json';
 
 export const config = new Conf<ConfigSchema>({
     projectName: 'devon',
-    projectSuffix: 'tnotifier',
+    projectSuffix: 'evilkiwi',
     configName: 'config',
     fileExtension: 'json',
     clearInvalidConfig: true,
