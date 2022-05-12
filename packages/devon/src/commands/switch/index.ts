@@ -72,7 +72,7 @@ export const run = async (chosen: string[], env: string, verbose = false) => {
     log('.env files generated successfully');
 
     // Up the compose file.
-    running.text = 'Starting containers';
+    running.text = 'starting containers';
     log('starting containers');
     const result = await compose.upAll(composeConfig);
 

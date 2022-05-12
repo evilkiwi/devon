@@ -16,7 +16,7 @@ export type DefinitionsDeployment = {
     failure_action?: string;
     monitor?: string;
     max_failure_ratio?: number;
-    order?: "start-first" | "stop-first";
+    order?: 'start-first' | 'stop-first';
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^x-".
@@ -29,7 +29,7 @@ export type DefinitionsDeployment = {
     failure_action?: string;
     monitor?: string;
     max_failure_ratio?: number;
-    order?: "start-first" | "stop-first";
+    order?: 'start-first' | 'stop-first';
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^x-".
@@ -150,7 +150,7 @@ export type Deployment = {
     failure_action?: string;
     monitor?: string;
     max_failure_ratio?: number;
-    order?: "start-first" | "stop-first";
+    order?: 'start-first' | 'stop-first';
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^x-".
@@ -163,7 +163,7 @@ export type Deployment = {
     failure_action?: string;
     monitor?: string;
     max_failure_ratio?: number;
-    order?: "start-first" | "stop-first";
+    order?: 'start-first' | 'stop-first';
     /**
      * This interface was referenced by `undefined`'s JSON-Schema definition
      * via the `patternProperty` "^x-".
@@ -235,6 +235,21 @@ export type Deployment = {
    */
   [k: string]: unknown;
 } | null;
+export type ServiceConfigOrSecret = (
+  | string
+  | {
+      source?: string;
+      target?: string;
+      uid?: string;
+      gid?: string;
+      mode?: number;
+      /**
+       * This interface was referenced by `undefined`'s JSON-Schema definition
+       * via the `patternProperty` "^x-".
+       */
+      [k: string]: unknown;
+    }
+)[];
 export type StringOrList = string | ListOfStrings;
 /**
  * This interface was referenced by `PropertiesNetworks`'s JSON-Schema definition
@@ -477,11 +492,14 @@ export interface DefinitionsService {
         labels?: ListOrDict;
         cache_from?: string[];
         cache_to?: string[];
+        no_cache?: boolean;
         network?: string;
+        pull?: boolean;
         target?: string;
         shm_size?: number | string;
         extra_hosts?: ListOrDict;
         isolation?: string;
+        secrets?: ServiceConfigOrSecret;
         /**
          * This interface was referenced by `undefined`'s JSON-Schema definition
          * via the `patternProperty` "^x-".
@@ -500,21 +518,7 @@ export interface DefinitionsService {
   cap_drop?: string[];
   cgroup_parent?: string;
   command?: string | string[];
-  configs?: (
-    | string
-    | {
-        source?: string;
-        target?: string;
-        uid?: string;
-        gid?: string;
-        mode?: number;
-        /**
-         * This interface was referenced by `undefined`'s JSON-Schema definition
-         * via the `patternProperty` "^x-".
-         */
-        [k: string]: unknown;
-      }
-  )[];
+  configs?: ServiceConfigOrSecret;
   container_name?: string;
   cpu_count?: number;
   cpu_percent?: number;
@@ -543,7 +547,7 @@ export interface DefinitionsService {
          * via the `patternProperty` "^[a-zA-Z0-9._-]+$".
          */
         [k: string]: {
-          condition: "service_started" | "service_healthy" | "service_completed_successfully";
+          condition: 'service_started' | 'service_healthy' | 'service_completed_successfully';
         };
       };
   device_cgroup_rules?: ListOfStrings;
@@ -637,28 +641,14 @@ export interface DefinitionsService {
   )[];
   privileged?: boolean;
   profiles?: ListOfStrings;
-  pull_policy?: "always" | "never" | "if_not_present" | "build" | "missing";
+  pull_policy?: 'always' | 'never' | 'if_not_present' | 'build' | 'missing';
   read_only?: boolean;
   restart?: string;
   runtime?: string;
   scale?: number;
   security_opt?: string[];
   shm_size?: number | string;
-  secrets?: (
-    | string
-    | {
-        source?: string;
-        target?: string;
-        uid?: string;
-        gid?: string;
-        mode?: number;
-        /**
-         * This interface was referenced by `undefined`'s JSON-Schema definition
-         * via the `patternProperty` "^x-".
-         */
-        [k: string]: unknown;
-      }
-  )[];
+  secrets?: ServiceConfigOrSecret;
   sysctls?: ListOrDict;
   stdin_open?: boolean;
   stop_grace_period?: string;
@@ -698,7 +688,7 @@ export interface DefinitionsService {
         bind?: {
           propagation?: string;
           create_host_path?: boolean;
-          selinux?: "z" | "Z";
+          selinux?: 'z' | 'Z';
           /**
            * This interface was referenced by `undefined`'s JSON-Schema definition
            * via the `patternProperty` "^x-".
@@ -715,6 +705,7 @@ export interface DefinitionsService {
         };
         tmpfs?: {
           size?: number | string;
+          mode?: number;
           /**
            * This interface was referenced by `undefined`'s JSON-Schema definition
            * via the `patternProperty` "^x-".
