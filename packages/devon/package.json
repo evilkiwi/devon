@@ -1,6 +1,6 @@
 {
     "name": "@evilkiwi/devon",
-    "version": "2.0.6",
+    "version": "2.1.0",
     "description": "Docker-based Monorepo Local Development CLI",
     "type": "module",
     "files": [
