@@ -25,3 +25,4 @@ export interface CommandPayload {
 export type CommandHandler = (payload: CommandPayload) => void;
 
 export * from './definition';
+export * from './generated';

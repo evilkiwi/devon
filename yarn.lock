@@ -269,19 +269,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evilkiwi/devon-compose-spec@*, @evilkiwi/devon-compose-spec@workspace:packages/compose-spec":
-  version: 0.0.0-use.local
-  resolution: "@evilkiwi/devon-compose-spec@workspace:packages/compose-spec"
-  dependencies:
-    "@types/node": ^16.11.34
-    json-schema-to-typescript: ^10.1.5
-    rimraf: ^3.0.2
-    tslib: ^2.4.0
-    typescript: ^4.6.4
-    unbuild: ^0.7.4
-  languageName: unknown
-  linkType: soft
-
 "@evilkiwi/devon-docs@workspace:docs":
   version: 0.0.0-use.local
   resolution: "@evilkiwi/devon-docs@workspace:docs"
@@ -294,7 +281,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@evilkiwi/devon@workspace:packages/devon"
   dependencies:
-    "@evilkiwi/devon-compose-spec": "*"
     "@oclif/core": ^1.8.1
     "@types/fs-extra": ^9.0.13
     "@types/glob": ^7.2.0
@@ -312,6 +298,7 @@ __metadata:
     inquirer: ^8.2.4
     is-wsl: ^2.2.0
     js-yaml: ^4.1.0
+    json-schema-to-typescript: ^10.1.5
     ora: ^6.1.0
     rimraf: ^3.0.2
     sudo-prompt: ^9.2.1

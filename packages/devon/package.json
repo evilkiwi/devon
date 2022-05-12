@@ -42,7 +42,8 @@
         "clean": "rimraf build",
         "prepack": "yarn build",
         "build": "yarn clean && yarn compile",
-        "compile": "NODE_ENV=production unbuild"
+        "compile": "NODE_ENV=production unbuild",
+        "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts"
     },
     "dependencies": {
         "@oclif/core": "^1.8.1",
@@ -63,12 +64,12 @@
         "typescript": "4.6.4"
     },
     "devDependencies": {
-        "@evilkiwi/devon-compose-spec": "*",
         "@types/fs-extra": "^9.0.13",
         "@types/glob": "^7.2.0",
         "@types/inquirer": "^8.2.1",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "^16.11.34",
+        "json-schema-to-typescript": "^10.1.5",
         "rimraf": "^3.0.2",
         "tslib": "^2.4.0",
         "typescript": "^4.6.4",
