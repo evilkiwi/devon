@@ -58,7 +58,7 @@ export const register: CommandHandler = ({ config, program }) => {
             // Then ask which, if any, should be bootstrapped, along with setting up some standard stuff.
             const answers = await inquirer.prompt<{
                 project: string;
-                manager: 'yarn'|'npm'|null;
+                manager: 'yarn'|'npm'|'pnpm'|null;
                 ssl: boolean;
                 bootstrap: string[];
                 db: 'mysql8'|'mysql5'|null;
@@ -87,6 +87,9 @@ export const register: CommandHandler = ({ config, program }) => {
                 }, {
                     name: 'NPM',
                     value: 'npm',
+                }, {
+                    name: 'PNPM',
+                    value: 'pnpm',
                 }, {
                     name: 'None',
                     value: null,
@@ -151,6 +154,7 @@ export const register: CommandHandler = ({ config, program }) => {
                     switch (answers.manager) {
                         case 'yarn': command = 'yarn add @evilkiwi/devon --dev -W'; break;
                         case 'npm': command = 'npm install --dev @evilkiwi/devon'; break;
+                        case 'pnpm': command = 'pnpm add -D @evilkiwi/devon'; break;
                     }
 
                     if (command.length) {

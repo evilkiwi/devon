@@ -8,7 +8,7 @@ import type { CommandHandler } from '../../types';
 import { run as down } from '../down';
 import { config } from '../../config';
 
-export const run = async (chosen: string[], env: string, verbose = false) => {
+export const run = async (chosen: string[], env: string, verbose = false, recreate = false) => {
     const log = (msg: string) => {
         if (verbose) {
             consola.log(msg);
@@ -71,6 +71,20 @@ export const run = async (chosen: string[], env: string, verbose = false) => {
     await generateEnv(env);
     log('.env files generated successfully');
 
+    // Force-rebuild images if needed.
+    if (recreate) {
+        log('force-rebuilding images');
+        running.text = 'rebuilding images';
+
+        const result = await compose.buildAll(composeConfig);
+
+        if (result.err) {
+            log(`failed to rebuild images: ${result.err}`);
+        } else {
+            log(`images rebuilt successfully: ${result.out}`);
+        }
+    }
+
     // Up the compose file.
     running.text = 'starting containers';
     log('starting containers');
@@ -116,8 +130,9 @@ export const run = async (chosen: string[], env: string, verbose = false) => {
 
 export const register: CommandHandler = ({ program }) => {
     program.command('switch')
-        .option('-V, --verbose', 'output debug info and steps')
-        .action(async (opts: { verbose?: boolean }) => {
+        .option('--verbose', 'output debug info and steps')
+        .option('-R, --recreate', 'forcibly recreate the docker images')
+        .action(async (opts: { verbose?: boolean, recreate?: boolean }) => {
             try {
                 const { definition, services } = await getServices();
                 const existingServices = config.get('currentServices').find(item => item.project === definition.project);
@@ -147,7 +162,7 @@ export const register: CommandHandler = ({ program }) => {
                     })),
                 }]);
 
-                await run(answers.services, answers.environment, opts.verbose);
+                await run(answers.services, answers.environment, opts.verbose, opts.recreate);
             } catch (e) {
                 consola.error(e as Error);
             }

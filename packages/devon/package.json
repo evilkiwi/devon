@@ -1,6 +1,6 @@
 {
     "name": "@evilkiwi/devon",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "Docker-based Monorepo Local Development CLI",
     "type": "module",
     "files": [
@@ -40,42 +40,42 @@
     ],
     "scripts": {
         "clean": "rimraf build",
-        "prepack": "yarn build",
-        "build": "yarn clean && yarn compile",
+        "prepack": "pnpm run build",
+        "build": "pnpm run clean && pnpm run compile",
         "compile": "NODE_ENV=production unbuild",
         "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts"
     },
     "dependencies": {
-        "@oclif/core": "^1.8.1",
-        "colorette": "^2.0.16",
-        "commander": "^9.2.0",
-        "conf": "^10.1.2",
+        "@oclif/core": "^1.16.1",
+        "colorette": "^2.0.19",
+        "commander": "^9.4.0",
+        "conf": "^10.2.0",
         "consola": "^2.15.3",
         "docker-compose": "^0.23.17",
         "fs-extra": "^10.1.0",
-        "glob": "^8.0.1",
+        "glob": "^8.0.3",
         "handlebars": "^4.7.7",
-        "inquirer": "^8.2.4",
+        "inquirer": "^9.1.1",
         "is-wsl": "^2.2.0",
         "js-yaml": "^4.1.0",
-        "ora": "^6.1.0",
+        "ora": "^6.1.2",
         "sudo-prompt": "^9.2.1",
-        "ts-node": "^10.7.0",
-        "typescript": "4.6.4"
+        "ts-node": "^10.9.1",
+        "typescript": "4.8.3"
     },
     "devDependencies": {
         "@types/fs-extra": "^9.0.13",
-        "@types/glob": "^7.2.0",
-        "@types/inquirer": "^8.2.1",
+        "@types/glob": "^8.0.0",
+        "@types/inquirer": "^9.0.1",
         "@types/js-yaml": "^4.0.5",
-        "@types/node": "^16.11.34",
-        "json-schema-to-typescript": "^10.1.5",
+        "@types/node": "^16.11.58",
+        "json-schema-to-typescript": "^11.0.2",
         "rimraf": "^3.0.2",
         "tslib": "^2.4.0",
-        "typescript": "^4.6.4",
-        "unbuild": "^0.7.4"
+        "typescript": "^4.8.3",
+        "unbuild": "^0.8.10"
     },
     "engines": {
-        "node": "^14.16.0 || ^16.11.0 || ^17.0.0 || ^18.0.0"
+        "node": "^16.0.0 || ^17.0.0 || ^18.0.0"
     }
 }

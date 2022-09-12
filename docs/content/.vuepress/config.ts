@@ -1,7 +1,6 @@
-import type { DefaultThemeOptions, ViteBundlerOptions } from 'vuepress-vite';
-import { defineUserConfig } from 'vuepress-vite';
+import { defineUserConfig, defaultTheme } from 'vuepress';
 
-export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
+export default defineUserConfig({
     base: '/devon/',
     lang: 'en-US',
     title: 'Devon',
@@ -11,7 +10,7 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
             lang: 'en-US',
         },
     },
-    themeConfig: {
+    theme: defaultTheme({
         home: '/',
         logo: 'https://vuejs.org/images/logo.png',
         repo: 'evilkiwi/devon',
@@ -50,5 +49,5 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
                 link: '/recipes/nginx/',
             }],
         }],
-    },
+    }),
 });

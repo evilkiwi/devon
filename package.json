@@ -1,14 +1,15 @@
 {
     "private": true,
-    "workspaces": [
-        "docs",
-        "packages/*"
-    ],
+    "packageManager": "pnpm@7.9.5",
     "scripts": {
-        "docs": "yarn workspace @evilkiwi/devon-docs",
-        "devon": "yarn workspace @evilkiwi/devon"
+        "build": "turbo run build"
     },
     "devDependencies": {
-        "@evilkiwi/devon": "*"
+        "@evilkiwi/devon": "*",
+        "turbo": "^1.4.6"
+    },
+    "engines": {
+        "node": ">=16",
+        "pnpm": ">=7"
     }
 }

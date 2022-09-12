@@ -1,13 +1,15 @@
 {
     "private": true,
     "name": "@evilkiwi/devon-docs",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "scripts": {
-        "dev": "vuepress-vite dev content",
-        "build": "vuepress-vite build content",
-        "serve": "vuepress-vite serve content"
+        "dev": "vuepress dev content",
+        "build": "vuepress build content",
+        "serve": "vuepress serve content"
     },
     "devDependencies": {
-        "vuepress-vite": "next"
+        "@vuepress/client": "^2.0.0-beta.50",
+        "vuepress": "next",
+        "vue": "^3.2.39"
     }
 }

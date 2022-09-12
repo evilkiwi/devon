@@ -500,6 +500,7 @@ export interface DefinitionsService {
         extra_hosts?: ListOrDict;
         isolation?: string;
         secrets?: ServiceConfigOrSecret;
+        tags?: string[];
         /**
          * This interface was referenced by `undefined`'s JSON-Schema definition
          * via the `patternProperty` "^x-".
@@ -763,6 +764,7 @@ export interface PropertiesSecrets {
  */
 export interface DefinitionsSecret {
   name?: string;
+  environment?: string;
   file?: string;
   external?:
     | boolean

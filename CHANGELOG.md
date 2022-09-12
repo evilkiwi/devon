@@ -1,3 +1,11 @@
+# 2.2.0 (2022-09-12)
+
+- Move monorepo to PNPM & Turborepo
+- Drop support for NodeJS 14
+- Re-sync types for Docker Compose
+- Support PNPM during onboarding
+- Added image rebuilding flag to `devon switch`
+
 # 2.0.3 (2022-03-14)
 
 - Added auto-generated `docker-compose` typings

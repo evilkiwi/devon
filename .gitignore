@@ -91,9 +91,6 @@ sw.*
 .devctl-scripts.yaml
 .devctl/data
 
-# VSCode
-.vscode
-
 # AWS Local
 .dynamodb
 
@@ -108,3 +105,6 @@ sw.*
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+# Turborepo
+.turbo
