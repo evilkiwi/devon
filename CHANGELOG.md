@@ -1,3 +1,7 @@
+# 2.2.1 (2022-09-22)
+
+- Added support for creating Volumes via root definition
+
 # 2.2.0 (2022-09-12)
 
 - Move monorepo to PNPM & Turborepo

@@ -1,4 +1,4 @@
-import type { DefinitionsService, DefinitionsNetwork } from './generated';
+import type { DefinitionsService, DefinitionsNetwork, DefinitionsVolume } from './generated';
 
 export interface Service {
     name: string;
@@ -33,6 +33,7 @@ export interface DefinitionFile {
     environments: Environment[];
     scripts?: Record<string, Script>;
     networks?: Record<string, DefinitionsNetwork>;
+    volumes?: Record<string, DefinitionsVolume>|string[];
     composeVersion?: string;
 }
 

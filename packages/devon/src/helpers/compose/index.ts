@@ -1,5 +1,5 @@
 import { dump } from 'js-yaml';
-import type { ServiceConfig } from '../../types';
+import type { DefinitionsVolume, ServiceConfig } from '../../types';
 import { getServices } from '../services';
 
 export const compileCompose = async (configs: Record<string, ServiceConfig>) => {
@@ -20,6 +20,12 @@ export const compileCompose = async (configs: Record<string, ServiceConfig>) => 
         services,
         ...(definition.networks !== undefined ? {
             networks: definition.networks,
+        } : {}),
+        ...(definition.volumes !== undefined ? {
+            volumes: Array.isArray(definition.volumes) ? definition.volumes.reduce<Record<string, DefinitionsVolume>>((obj, name) => {
+                obj[name] = {};
+                return obj;
+            }, {}) : definition.volumes,
         } : {}),
     });
 };
