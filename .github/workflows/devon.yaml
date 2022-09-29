@@ -39,7 +39,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Packages
-        run: pnpm build --filter=@evilkiwi/devon
+        run: pnpm build --filter=@oyed/devon
       - name: Publish
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}

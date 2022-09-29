@@ -1,3 +1,8 @@
+# 2.2.2 (2022-09-29)
+
+- Moved to OYED `@oyed/devon`
+- Updated dependencies
+
 # 2.2.1 (2022-09-22)
 
 - Added support for creating Volumes via root definition

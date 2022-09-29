@@ -16,11 +16,11 @@ head:
 Devon is distributed as a NodeJS-based CLI through npm. You can install it locally, but it's easier to work with when installed globally:
 
 ```bash
-yarn global add @evilkiwi/devon
+yarn global add @oyed/devon
 
 # or
 
-npm install -g @evilkiwi/devon
+npm install -g @oyed/devon
 ```
 
 ::: warning

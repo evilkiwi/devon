@@ -1,4 +1,4 @@
-export const redis = `import type { ServiceConfig } from '@evilkiwi/devon';
+export const redis = `import type { ServiceConfig } from '@oyed/devon';
 
 export const config: ServiceConfig = {
     compose: {

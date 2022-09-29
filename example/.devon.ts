@@ -1,4 +1,4 @@
-import type { DefinitionFile } from '@evilkiwi/devon';
+import type { DefinitionFile } from '@oyed/devon';
 
 export const config: DefinitionFile = {
     project: 'example',

@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@evilkiwi/devon-docs",
+    "name": "@oyed/devon-docs",
     "version": "1.0.0",
     "scripts": {
         "dev": "vuepress dev content",
@@ -10,6 +10,6 @@
     "devDependencies": {
         "@vuepress/client": "^2.0.0-beta.50",
         "vuepress": "next",
-        "vue": "^3.2.39"
+        "vue": "^3.2.40"
     }
 }

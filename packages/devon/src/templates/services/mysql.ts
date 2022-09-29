@@ -1,4 +1,4 @@
-export const mysql8 = `import type { ServiceConfig } from '@evilkiwi/devon';
+export const mysql8 = `import type { ServiceConfig } from '@oyed/devon';
 
 export const config: ServiceConfig = {
     compose: {
@@ -18,7 +18,7 @@ export const config: ServiceConfig = {
 };
 `;
 
-export const mysql5 = `import type { ServiceConfig } from '@evilkiwi/devon';
+export const mysql5 = `import type { ServiceConfig } from '@oyed/devon';
 
 export const config: ServiceConfig = {
     compose: {

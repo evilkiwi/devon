@@ -39,7 +39,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build Packages
-        run: pnpm build --filter=@evilkiwi/devon-docs
+        run: pnpm build --filter=@oyed/devon-docs
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -61,4 +61,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           destination_dir: docs
-          cname: docs.evil.kiwi
+          cname: docs.oyed.dev
