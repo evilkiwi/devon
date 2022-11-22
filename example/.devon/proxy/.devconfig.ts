@@ -1,4 +1,4 @@
-import type { ServiceConfig } from '@oyed/devon';
+import type { ServiceConfig } from '@evilkiwi/devon';
 
 export const config: ServiceConfig = {
     compose: {

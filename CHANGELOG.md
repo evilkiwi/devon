@@ -1,3 +1,8 @@
+# 2.2.3 (2022-11-22)
+
+- Move back to Evil Kiwi (`@evilkiwi/devon`)
+- Update dependencies
+
 # 2.2.2 (2022-09-29)
 
 - Moved to OYED `@oyed/devon`

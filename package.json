@@ -1,12 +1,12 @@
 {
     "private": true,
-    "packageManager": "pnpm@7.11.0",
+    "packageManager": "pnpm@7.14.0",
     "scripts": {
         "build": "turbo run build"
     },
     "devDependencies": {
-        "@oyed/devon": "*",
-        "turbo": "^1.5.4"
+        "@evilkiwi/devon": "*",
+        "turbo": "^1.6.3"
     },
     "engines": {
         "node": ">=16",

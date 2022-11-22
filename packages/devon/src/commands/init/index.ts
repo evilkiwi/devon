@@ -152,9 +152,9 @@ export const register: CommandHandler = ({ config, program }) => {
                     let command = '';
 
                     switch (answers.manager) {
-                        case 'yarn': command = 'yarn add @oyed/devon --dev -W'; break;
-                        case 'npm': command = 'npm install --dev @oyed/devon'; break;
-                        case 'pnpm': command = 'pnpm add -D @oyed/devon'; break;
+                        case 'yarn': command = 'yarn add @evilkiwi/devon --dev -W'; break;
+                        case 'npm': command = 'npm install --dev @evilkiwi/devon'; break;
+                        case 'pnpm': command = 'pnpm add -D @evilkiwi/devon'; break;
                     }
 
                     if (command.length) {

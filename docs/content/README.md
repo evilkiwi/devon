@@ -19,5 +19,5 @@ features:
     details: With Devon, you'll never have to manually run any Docker commands
   - title: Full TypeScript Configs
     details: We chose TypeScript for our config and definition files, meaning you can enjoy full typing without having to read docs
-footer: GPL-3.0 Licensed | Copyright © 2022 OYED
+footer: GPL-3.0 Licensed | Copyright © 2022 Evil Kiwi Limited
 ---

@@ -1,4 +1,4 @@
-export const definitionFile = `import type { DefinitionFile } from '@oyed/devon';
+export const definitionFile = `import type { DefinitionFile } from '@evilkiwi/devon';
 
 export const config: DefinitionFile = {
     project: '{{project}}',{{#if proxyDomains}}

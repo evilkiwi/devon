@@ -1,15 +1,15 @@
 <div align="center">
-    <a href="https://www.npmjs.com/package/@oyed/devon" target="_blank">
-        <img src="https://img.shields.io/npm/v/@oyed/devon?style=flat-square" alt="NPM" />
+    <a href="https://www.npmjs.com/package/@evilkiwi/devon" target="_blank">
+        <img src="https://img.shields.io/npm/v/@evilkiwi/devon?style=flat-square" alt="NPM" />
     </a>
     <a href="https://discord.gg/3S6AKZ2GR9" target="_blank">
         <img src="https://img.shields.io/discord/1000565079789535324?color=7289DA&label=discord&logo=discord&logoColor=FFFFFF&style=flat-square" alt="Discord" />
     </a>
-    <img src="https://img.shields.io/npm/l/@oyed/devon?style=flat-square" alt="GPL-3.0-only" />
+    <img src="https://img.shields.io/npm/l/@evilkiwi/devon?style=flat-square" alt="GPL-3.0-only" />
     <h3>Docker-based Monorepo Local Development CLI</h3>
 </div>
 
-`@oyed/devon` is a node-based CLI tool aiming to bridge the gap between production and local development for monorepos.
+`@evilkiwi/devon` is a node-based CLI tool aiming to bridge the gap between production and local development for monorepos.
 
 - Configure multi-command Scripts for common development workflows
 - Automate trusted local SSL certificates out-of-the-box
@@ -23,11 +23,11 @@
 This package is available via NPM:
 
 ```bash
-yarn global add @oyed/devon
+yarn global add @evilkiwi/devon
 
 # or
 
-npm install -g @oyed/devon
+npm install -g @evilkiwi/devon
 ```
 
 **You also need to have Docker installed on your local machine.** It can be downloaded via [docker.com](https://www.docker.com/products/docker-desktop).
@@ -36,7 +36,7 @@ If you want `devon` to automate generating and installing local SSL Certificates
 
 ## Documentation
 
-You can view the [online documentation here](https://docs.oyed.dev/devon/).
+You can view the [online documentation here](https://docs.evil.kiwi/devon/).
 
 ## Usage
 

@@ -18,7 +18,7 @@ If you chose not to add MySQL 5/8 to your monorepo during the `devon init` comma
 `.devon/mysql/.devconfig.ts`
 
 ```typescript
-import type { ServiceConfig } from '@oyed/devon';
+import type { ServiceConfig } from '@evilkiwi/devon';
 
 export const config: ServiceConfig = {
     compose: {
@@ -27,10 +27,10 @@ export const config: ServiceConfig = {
         environment: {
             // Change these details to ensure a
             // Database & User exist when the container starts
-            MYSQL_ROOT_PASSWORD: 'oyed',
-            MYSQL_DATABASE: 'oyed',
-            MYSQL_USER: 'oyed',
-            MYSQL_PASSWORD: 'oyed',
+            MYSQL_ROOT_PASSWORD: 'evilkiwi',
+            MYSQL_DATABASE: 'evilkiwi',
+            MYSQL_USER: 'evilkiwi',
+            MYSQL_PASSWORD: 'evilkiwi',
         },
         volumes: [
             './.devon/.data/mysql8:/var/lib/mysql',
@@ -43,7 +43,7 @@ export const config: ServiceConfig = {
 `.devon.ts`
 
 ```typescript
-import type { DefinitionFile } from '@oyed/devon';
+import type { DefinitionFile } from '@evilkiwi/devon';
 
 export const config: DefinitionFile = {
     ...
