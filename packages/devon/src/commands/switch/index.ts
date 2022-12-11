@@ -9,162 +9,162 @@ import { run as down } from '../down';
 import { config } from '../../config';
 
 export const run = async (chosen: string[], env: string, verbose = false, recreate = false) => {
-    const log = (msg: string) => {
-        if (verbose) {
-            consola.log(msg);
-        }
-    };
-
-    // Fetch the definition and service configs.
-    const { definition, services } = await getServices();
-    const dir = await cwd();
-
-    consola.log('');
-    const running = ora('compiling docker-compose yaml').start();
-
+  const log = (msg: string) => {
     if (verbose) {
-        running.stop();
+      consola.log(msg);
     }
+  };
 
-    // Down existing compose if any.
-    log('downing previous containers (if any)');
-    await down();
-    log('containers downed');
+  // Fetch the definition and service configs.
+  const { definition, services } = await getServices();
+  const dir = await cwd();
 
-    // Compile the docker-compose config.
-    const configs = [
-        ...chosen,
-        ...Object.keys(services).filter(name => {
-            return services[name].definition.force === true;
-        }),
-    ].reduce<any>((config, name) => {
-        return {
-            ...config,
-            [name]: {
-                ...services[name].config,
-                compose: services[name].config.compose ? {
-                    ...services[name].config.compose,
-                    container_name: containerName(definition.project, name),
-                } : undefined,
-            },
-        };
-    }, {});
+  consola.log('');
+  const running = ora('compiling docker-compose yaml').start();
 
-    // Compile docker compose command config.
-    const compiledConfig = await compileCompose(configs);
+  if (verbose) {
+    running.stop();
+  }
 
-    log('compiled docker-compose:');
-    log(compiledConfig);
+  // Down existing compose if any.
+  log('downing previous containers (if any)');
+  await down();
+  log('containers downed');
 
-    const composeConfig: IDockerComposeOptions = {
-        configAsString: compiledConfig,
-        cwd: dir,
-        log: false,
-        env: {
-            ...process.env,
-            COMPOSE_PROJECT_NAME: definition.project,
-        },
+  // Compile the docker-compose config.
+  const configs = [
+    ...chosen,
+    ...Object.keys(services).filter(name => {
+      return services[name].definition.force === true;
+    }),
+  ].reduce<any>((config, name) => {
+    return {
+      ...config,
+      [name]: {
+        ...services[name].config,
+        compose: services[name].config.compose ? {
+          ...services[name].config.compose,
+          container_name: containerName(definition.project, name),
+        } : undefined,
+      },
     };
+  }, {});
 
-    // Trigger .env changes.
-    log('generating new .env files');
-    await generateEnv(env);
-    log('.env files generated successfully');
+  // Compile docker compose command config.
+  const compiledConfig = await compileCompose(configs);
 
-    // Force-rebuild images if needed.
-    if (recreate) {
-        log('force-rebuilding images');
-        running.text = 'rebuilding images';
+  log('compiled docker-compose:');
+  log(compiledConfig);
 
-        const result = await compose.buildAll(composeConfig);
+  const composeConfig: IDockerComposeOptions = {
+    configAsString: compiledConfig,
+    cwd: dir,
+    log: false,
+    env: {
+      ...process.env,
+      COMPOSE_PROJECT_NAME: definition.project,
+    },
+  };
 
-        if (result.err) {
-            log(`failed to rebuild images: ${result.err}`);
-        } else {
-            log(`images rebuilt successfully: ${result.out}`);
-        }
-    }
+  // Trigger .env changes.
+  log('generating new .env files');
+  await generateEnv(env);
+  log('.env files generated successfully');
 
-    // Up the compose file.
-    running.text = 'starting containers';
-    log('starting containers');
-    const result = await compose.upAll(composeConfig);
+  // Force-rebuild images if needed.
+  if (recreate) {
+    log('force-rebuilding images');
+    running.text = 'rebuilding images';
+
+    const result = await compose.buildAll(composeConfig);
 
     if (result.err) {
-        log(`failed to start containers: ${result.err}`);
+      log(`failed to rebuild images: ${result.err}`);
     } else {
-        log(`containers started successfully: ${result.out}`);
+      log(`images rebuilt successfully: ${result.out}`);
     }
+  }
 
-    config.set('currentCompose', {
+  // Up the compose file.
+  running.text = 'starting containers';
+  log('starting containers');
+  const result = await compose.upAll(composeConfig);
+
+  if (result.err) {
+    log(`failed to start containers: ${result.err}`);
+  } else {
+    log(`containers started successfully: ${result.out}`);
+  }
+
+  config.set('currentCompose', {
+    project: definition.project,
+    compose: compiledConfig,
+  });
+
+  // Set the current services for this project.
+  const current = config.get('currentServices');
+  const exists = current.find(item => item.project === definition.project) !== undefined;
+
+  if (exists) {
+    config.set('currentServices', current.map(item => {
+      if (item.project === definition.project) {
+        item.services = chosen;
+      }
+
+      return item;
+    }));
+  } else {
+    config.set('currentServices', [
+      ...current,
+      {
         project: definition.project,
-        compose: compiledConfig,
-    });
+        services: chosen,
+      },
+    ]);
+  }
 
-    // Set the current services for this project.
-    const current = config.get('currentServices');
-    const exists = current.find(item => item.project === definition.project) !== undefined;
-
-    if (exists) {
-        config.set('currentServices', current.map(item => {
-            if (item.project === definition.project) {
-                item.services = chosen;
-            }
-
-            return item;
-        }));
-    } else {
-        config.set('currentServices', [
-            ...current,
-            {
-                project: definition.project,
-                services: chosen,
-            },
-        ]);
-    }
-
-    // Done!
-    running.stop();
-    consola.success('containers started');
+  // Done!
+  running.stop();
+  consola.success('containers started');
 };
 
 export const register: CommandHandler = ({ program }) => {
-    program.command('switch')
-        .option('--verbose', 'output debug info and steps')
-        .option('-R, --recreate', 'forcibly recreate the docker images')
-        .action(async (opts: { verbose?: boolean, recreate?: boolean }) => {
-            try {
-                const { definition, services } = await getServices();
-                const existingServices = config.get('currentServices').find(item => item.project === definition.project);
+  program.command('switch')
+    .option('--verbose', 'output debug info and steps')
+    .option('-R, --recreate', 'forcibly recreate the docker images')
+    .action(async (opts: { verbose?: boolean, recreate?: boolean }) => {
+      try {
+        const { definition, services } = await getServices();
+        const existingServices = config.get('currentServices').find(item => item.project === definition.project);
 
-                // Ask which services to use.
-                const answers = await inquirer.prompt<{
-                    services: string[];
-                    environment: string;
-                }>([{
-                    type: 'checkbox',
-                    name: 'services',
-                    message: 'which Services are you working on?',
-                    choices: Object.keys(services).filter(key => {
-                        return services[key].definition.force !== true;
-                    }).map(key => ({
-                        name: key,
-                        value: key,
-                        checked: (existingServices?.services.indexOf(key) ?? -1) !== -1,
-                    })),
-                }, {
-                    type: 'list',
-                    name: 'environment',
-                    message: 'which environment should the other services use?',
-                    choices: definition.environments.map(env => ({
-                        name: env.name,
-                        value: env.name,
-                    })),
-                }]);
+        // Ask which services to use.
+        const answers = await inquirer.prompt<{
+          services: string[];
+          environment: string;
+        }>([{
+          type: 'checkbox',
+          name: 'services',
+          message: 'which Services are you working on?',
+          choices: Object.keys(services).filter(key => {
+            return services[key].definition.force !== true;
+          }).map(key => ({
+            name: key,
+            value: key,
+            checked: (existingServices?.services.indexOf(key) ?? -1) !== -1,
+          })),
+        }, {
+          type: 'list',
+          name: 'environment',
+          message: 'which environment should the other services use?',
+          choices: definition.environments.map(env => ({
+            name: env.name,
+            value: env.name,
+          })),
+        }]);
 
-                await run(answers.services, answers.environment, opts.verbose, opts.recreate);
-            } catch (e) {
-                consola.error(e as Error);
-            }
-        });
+        await run(answers.services, answers.environment, opts.verbose, opts.recreate);
+      } catch (e) {
+        consola.error(e as Error);
+      }
+    });
 };

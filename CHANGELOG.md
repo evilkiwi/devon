@@ -1,3 +1,10 @@
+# 2.3.0 (2022-12-11)
+
+- Support loading ES Modules
+- Move away from `ts-node` to `tsx`
+- Updated dependencies
+- Updated docker-compose typings
+
 # 2.2.3 (2022-11-22)
 
 - Move back to Evil Kiwi (`@evilkiwi/devon`)

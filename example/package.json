@@ -1,10 +1,10 @@
 {
-    "private": true,
-    "workspaces": [
-        "app",
-        "api"
-    ],
-    "devDependencies": {
-        "@evilkiwi/devon": "*"
-    }
+  "private": true,
+  "workspaces": [
+    "app",
+    "api"
+  ],
+  "devDependencies": {
+    "@evilkiwi/devon": "*"
+  }
 }
