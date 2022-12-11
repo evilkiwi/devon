@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@evilkiwi/devon",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Docker-based Monorepo Local Development CLI",
   "files": [
     "bin",
@@ -43,10 +43,10 @@
     "prepack": "pnpm run build",
     "build": "pnpm run clean && pnpm run compile",
     "compile": "NODE_ENV=production unbuild",
-    "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts",
-    "postinstall": "npm install -g tsx"
+    "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts"
   },
   "dependencies": {
+    "@esbuild-kit/cjs-loader": "^2.4.1",
     "@oclif/core": "^1.21.0",
     "colorette": "^2.0.19",
     "commander": "^9.4.1",

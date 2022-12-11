@@ -12,7 +12,7 @@ export const getServices = async (): Promise<Result> => {
   let cfg: any = {};
 
   try {
-    cfg = await import(join(dir, filename));
+    cfg = require(join(dir, filename));
   } catch (e) {
     console.log(e);
     throw new Error(`could not find a ${filename} file`);
@@ -35,7 +35,7 @@ export const getServices = async (): Promise<Result> => {
     const path = join(dir, service.path ?? service.name, serviceFile);
 
     try {
-      const fetch = await import(path);
+      const fetch = require(path);
 
       if (fetch.config) {
         services[service.name] = {
