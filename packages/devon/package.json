@@ -43,7 +43,8 @@
     "prepack": "pnpm run build",
     "build": "pnpm run clean && pnpm run compile",
     "compile": "NODE_ENV=production unbuild",
-    "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts"
+    "fetch": "wget -O - https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json | json2ts --style.singleQuote > ./src/types/generated.ts",
+    "postinstall": "npm install -g tsx"
   },
   "dependencies": {
     "@oclif/core": "^1.21.0",
